@@ -5804,7 +5804,7 @@ MicUpTrollingSection:NewButton("Open All Doors LAGGY", "Opens all the houses doo
 end)
 getgenv().Toggled = false
 
-MicUpTrollingSection:NewToggle("Lag Server", "Causes extreme lag to everyone else and slight lag for you.", function(state)
+MicUpTrollingSection:NewToggle("Lag Server", "Causes extreme lag to everyone.", function(state)
     if state then
         getgenv().Lagger = true;
 
