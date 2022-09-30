@@ -5235,10 +5235,89 @@ end)
 if game.PlaceId == 6884319169 then
     local MicUpTrolling = Window:NewTab("Mic Up Trolling")
     local MicUpTrollingSection = MicUpTrolling:NewSection("Mic Up Trolling")
+    local MicUpStandControl = Window:NewTab("Mic Up Stand's")
+    local MicUpStandControlSection = MicUpStandControl:NewSection("Wireless Stand Controller")
+    
+    MicUpStandControlSection:NewTextBox("Change Stand Name", "Type what you want it to say in the box.", function(txt)
+        print(txt)
+        
+        
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("RemoteEvent") and v.Name == ("Edit") then
+                print(v.Name)
+                local A1 = txt
+                v:FireServer(A1)
+            end
+        end
+    end)
+
+    MicUpStandControlSection:NewTextBox("Change Stand Logo", "Put the id in the text box.", function(txt)
+        print(txt)
+
+        
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("RemoteEvent") and v.Name == ("Edit") then
+                local A1 = v.Parent.TextBoard.SurfaceGui.SIGN.Text
+                local A2 = txt
+                v:FireServer(A1, A2)
+            end
+        end
+    end)
+    MicUpStandControlSection:NewButton("Open Edit Menu", "Alternative for the first two options.", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("Part") and v.Name == ("EditPart") then
+                print(v.Name)
+                fireclickdetector(v:FindFirstChild("ClickDetector"))
+            end
+        end
+    end)
+    MicUpStandControlSection:NewButton("Close Stand", "Closes your own stand.", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                print(v.Name)
+                v:FireServer()
+            end
+        end
+    end)
+
+    local MicUpStandControlSection = MicUpStandControl:NewSection("Stand Reserver")
+    MicUpStandControlSection:NewButton("Any Stand", "Grabs the first stand it can when it can. (WILL LAG)", function()
+        local ProximityPromptService = game:GetService("ProximityPromptService")
+        local RunService = game:GetService("RunService")
+        local plr = game.Players.LocalPlayer
+        local chr = plr.Character
+        
+        print("Finding any open stall")
+        
+        local StandReserver
+        StandReserver = RunService.Heartbeat:Connect(function(step)
+            for _,v in pairs(game.Workspace:GetDescendants()) do
+                if v:IsA("TextLabel") and v.Parent.Parent.Name == ("NameAttachment") and v.Text == ("Unclaimed") then
+                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.Parent.Parent.CFrame
+                    print("Found an open stall")
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Parent.Name == ("Stalls") then
+                            if ProximityPromptService.PromptShown then
+                                wait()
+                                fireproximityprompt(v, 1, true)
+                                StandReserver:Disconnect()
+                            end
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+
+
+--[[ Deprecated ]
     local MicUpDonuts = Window:NewTab("Mic Up Donuts")
     local MicUpDonutsSection = MicUpDonuts:NewSection("Mic Up Donuts")
     local MicUpHats = Window:NewTab("Mic Up Hats")
     local MicUpHatsSection = MicUpHats:NewSection("Mic Up Hats")
+]]
+
+--[[ All Deprecated ]
     --Mic Up Donuts
     MicUpDonutsSection:NewButton("Glowing White Donut", "Grabs that donut", function()
         local ProxPrompt = game:GetService("Workspace").Donutshop.DonutGiver.ProximityPrompt
@@ -5630,7 +5709,9 @@ if game.PlaceId == 6884319169 then
             end
         end)
     end)
+]]
 
+--[[ All Deprecated ]
     --Mic Up Hats
     MicUpHatsSection:NewButton("All Hats", "Wears every hat", function()
         --wearallhats
@@ -5723,7 +5804,7 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
-
+]]
     --Mic Up Trolling
     MicUpTrollingSection:NewButton("Make Stairs Vanish", "Wait till stairs fully reappear before using again", function()
     --stair deleter
@@ -5760,11 +5841,11 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
-    MicUpTrollingSection:NewButton("Close Stand", "Closes your own stand.", function()
+    MicUpTrollingSection:NewButton("Fill All TicTacToe Boards", "VERY self explanitory.", function()
         for _,v in pairs(workspace:GetDescendants()) do
-            if v:IsA("RemoteEvent") and v.Parent.Parent.Name == ("Stalls") and v.Name == ("CloseStall") then
+            if v:IsA("Part") and v.Name == ("Detector1") or v.Name == ("Detector2") or v.Name == ("Detector3") or v.Name == ("Detector4") or v.Name == ("Detector5") or v.Name == ("Detector6") or v.Name == ("Detector7") or v.Name == ("Detector8") or v.Name == ("Detector9") and v.Parent.Name == ("Tic Tac Toe")  then
                 print(v.Name)
-                v:FireServer()
+                fireclickdetector(v:FindFirstChild("ClickDetector"))
             end
         end
     end)
@@ -5784,7 +5865,14 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
-    MicUpTrollingSection:NewButton("Open All Doors LAGGY", "Opens all the houses doors. EXTREME LAG", function()
+    MicUpTrollingSection:NewButton("Open All Doors", "Opens all the houses doors. (Can Lag.)", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("Part") and v.Name == ("Handle") and v:FindFirstChild("ClickDetector") and v.Parent.Name == ("DeadBolt") and v.Parent.Parent.Locked.Value == true  then
+                print(v.Name)
+                fireclickdetector(v:FindFirstChild("ClickDetector"))
+            end
+        end
+        wait(0.25)
         for _,v in pairs(workspace:GetDescendants()) do
             if v:IsA("Part") and v.Name == ("Front") and v.Parent.Name == ("Handle")  then
                 print(v.Name)
@@ -5792,6 +5880,8 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
+
+--[[ deprecated ]
     getgenv().Toggled = false
 
     MicUpTrollingSection:NewToggle("Lag Server", "Causes extreme lag to everyone.", function(state)
@@ -5805,8 +5895,12 @@ if game.PlaceId == 6884319169 then
                     if not getgenv().Lagger == true then break end
                     for _,v in pairs(workspace:GetChildren()) do
                         if v:IsA("Part") and v:FindFirstChild("TouchInterest") and v:FindFirstChild("Mesh") then
+                            local AFKREMOTE = game:GetService("ReplicatedStorage").AFK
+                            AFKREMOTE:FireServer(true)
                             firetouchinterest(plrhead, v, 0)
                             wait(0)
+                            local AFKREMOTE = game:GetService("ReplicatedStorage").AFK
+                            AFKREMOTE:FireServer(false)
                             firetouchinterest(plrhead, v, 1)
                         end
                     end
@@ -5843,7 +5937,10 @@ if game.PlaceId == 6884319169 then
             end)
         end
     end)
+    
+]]
 
+--[[ deprecated ]
     MicUpTrollingSection:NewToggle("Fake AFK", "Makes you appear to be AFK", function(state)
         if state then
             local AFKREMOTE = game:GetService("ReplicatedStorage").AFK
@@ -5853,6 +5950,7 @@ if game.PlaceId == 6884319169 then
             AFKREMOTE:FireServer(false)
         end
     end)
+]]
 elseif game.PlaceId == 537413528 then
     local BABFT = Window:NewTab("Build A Boat")
     local BABFTSection = BABFT:NewSection("Build A Boat For Treasure")
