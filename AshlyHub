@@ -8,7 +8,7 @@ local Window = Library.CreateLib("AshlyHub", "Sentinel")
 local About = Window:NewTab("About")
 local AboutSection = About:NewSection("About")
 local Essentials = Window:NewTab("Essentials")
-local EssentialsSection = Essentials:NewSection("Essentials")
+local EssentialsSection = Essentials:NewSection("Admin GUI's")
 local PlayerModifications = Window:NewTab("Player Modification's")
 local PlayerModificationsSection = PlayerModifications:NewSection("Player Modification's")
 --About
@@ -22,10 +22,16 @@ AboutSection:NewLabel("The compatible games are above the script.")
 EssentialsSection:NewButton("Infinite Yield", "Loads Infinite Yield, an \"admin\" menu.", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
-EssentialsSection:NewButton("Anti AFK", "Loads a gui that prevents ROBLOX\'s Anti AFK.", function()
+
+local MiscEssentialsSection = Essentials:NewSection("Misc")
+
+MiscEssentialsSection:NewButton("Anti AFK", "Loads a gui that prevents ROBLOX\'s Anti AFK.", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))()
 end)
-EssentialsSection:NewButton("Remote Spy", "Alerts remote events in console.", function()
+
+local ScriptEssentialsSection = Essentials:NewSection("Scriptmaking Essentials")
+
+ScriptEssentialsSection:NewButton("Remote Spy", "Alerts remote events in console.", function()
 _G.scanRemotes = true
 
 _G.ignoreNames = {
@@ -231,7 +237,7 @@ end
 
 print("\nRan Vaeb's RemoteSpy\n")
 end)
-EssentialsSection:NewButton("Remote Spy GUI", "Loads a gui that alerts remote events and local script interactions.", function()
+ScriptEssentialsSection:NewButton("Remote Spy GUI", "Loads a gui that alerts remote events and local script interactions.", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/bCghX33W", true))()
 end)
 
@@ -5194,43 +5200,15 @@ topkek.libwindows:initiateNavigator()
 topkek.libwindows:initiateHome()
 end)
 
+--[[ BOTTOM OF TOPKEK ]]
+
 --Player modifications
-PlayerModificationsSection:NewSlider("Walkspeed", "Generic walkspeed modifier.", 1000, 0, function(s)
+PlayerModificationsSection:NewSlider("Walkspeed", "Generic walkspeed modifier.", 200, 16, function(s)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
 end)
-PlayerModificationsSection:NewSlider("Jump Height", "Generic jump modifier.", 1000, 0, function(s)
+PlayerModificationsSection:NewSlider("Jump Height", "Generic jump modifier.", 200, 30, function(s)
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
 end)
-PlayerModificationsSection:NewButton("Noclip", "Toggles Noclip by pressing N R6 ONLY.", function()
-    noclip = false
-game:GetService('RunService').Stepped:connect(function()
-if noclip then
-local on = true;
-
-game:GetService("Players")
-.LocalPlayer
-.Character
-.HumanoidRootPart
-.Anchored = false;
-end
-end)
-plr = game.Players.LocalPlayer
-mouse = plr:GetMouse()
-mouse.KeyDown:connect(function(key)
-
-if key == "n" then
-noclip = not noclip
-local on = false;
-
-game:GetService("Players")
-.LocalPlayer
-.Character
-.HumanoidRootPart
-.Anchored = on;
-end
-end)
-end)
-
 
 if game.PlaceId == 6884319169 then
     local MicUpTrolling = Window:NewTab("Mic Up Trolling")
@@ -5307,6 +5285,426 @@ if game.PlaceId == 6884319169 then
                 end
             end
         end)
+    end)
+    
+    MicUpStandControlSection:NewToggle("Stand 1", "Waits for the stand to open to claim it.", function(state)
+        if state then
+            getgenv().Stand4Reservation = true;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    
+                    if not getgenv().Stand4Reservation == true then break end
+                    
+                    
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("TextLabel") and v.Parent.Parent.Parent.Parent.Name == ("Stall4") and v.Text == ("Unclaimed") then
+                            print("Stalls open")
+                            for _,v in pairs(game.Workspace:GetDescendants()) do
+                                if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Name == ("Stall4") then
+                                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+                                    if ProximityPromptService.PromptShown then
+                                        for _,v in pairs(workspace:GetDescendants()) do
+                                            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                                                print(v.Name)
+                                                v:FireServer()
+                                            end
+                                        end
+                                        fireproximityprompt(v, 1, true)
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    
+                    
+                end
+            end)
+        else
+            getgenv().Stand4Reservation = false;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+             
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    
+                    if not getgenv().Stand4Reservation == true then break end
+                    
+                    
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("TextLabel") and v.Parent.Parent.Parent.Parent.Name == ("Stall4") and v.Text == ("Unclaimed") then
+                            print("Stalls open")
+                            for _,v in pairs(game.Workspace:GetDescendants()) do
+                                if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Name == ("Stall4") then
+                                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+                                    if ProximityPromptService.PromptShown then
+                                        for _,v in pairs(workspace:GetDescendants()) do
+                                            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                                                print(v.Name)
+                                                v:FireServer()
+                                            end
+                                        end
+                                        fireproximityprompt(v, 1, true)
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    
+                    
+                end
+            end)
+        end
+    end)
+
+    MicUpStandControlSection:NewToggle("Stand 2", "Waits for the stand to open to claim it.", function(state)
+        if state then
+            getgenv().Stand5Reservation = true;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    
+                    if not getgenv().Stand5Reservation == true then break end
+                    
+                    
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("TextLabel") and v.Parent.Parent.Parent.Parent.Name == ("Stall5") and v.Text == ("Unclaimed") then
+                            print("Stalls open")
+                            for _,v in pairs(game.Workspace:GetDescendants()) do
+                                if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Name == ("Stall5") then
+                                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+                                    if ProximityPromptService.PromptShown then
+                                        for _,v in pairs(workspace:GetDescendants()) do
+                                            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                                                print(v.Name)
+                                                v:FireServer()
+                                            end
+                                        end
+                                        fireproximityprompt(v, 1, true)
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    
+                    
+                end
+            end)
+        else
+            getgenv().Stand5Reservation = false;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    
+                    if not getgenv().Stand5Reservation == true then break end
+                    
+                    
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("TextLabel") and v.Parent.Parent.Parent.Parent.Name == ("Stall5") and v.Text == ("Unclaimed") then
+                            print("Stalls open")
+                            for _,v in pairs(game.Workspace:GetDescendants()) do
+                                if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Name == ("Stall5") then
+                                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+                                    if ProximityPromptService.PromptShown then
+                                        for _,v in pairs(workspace:GetDescendants()) do
+                                            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                                                print(v.Name)
+                                                v:FireServer()
+                                            end
+                                        end
+                                        fireproximityprompt(v, 1, true)
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    
+                    
+                end
+            end)
+        end
+    end)
+
+    MicUpStandControlSection:NewToggle("Stand 3", "Waits for the stand to open to claim it.", function(state)
+        if state then
+            getgenv().Stand1Reservation = true;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    
+                    if not getgenv().Stand1Reservation == true then break end
+                    
+                    
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("TextLabel") and v.Parent.Parent.Parent.Parent.Name == ("Stall1") and v.Text == ("Unclaimed") then
+                            print("Stalls open")
+                            for _,v in pairs(game.Workspace:GetDescendants()) do
+                                if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Name == ("Stall1") then
+                                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+                                    if ProximityPromptService.PromptShown then
+                                        for _,v in pairs(workspace:GetDescendants()) do
+                                            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                                                print(v.Name)
+                                                v:FireServer()
+                                            end
+                                        end
+                                        fireproximityprompt(v, 1, true)
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    
+                    
+                end
+            end)
+        else
+            getgenv().Stand1Reservation = false;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    
+                    if not getgenv().Stand1Reservation == true then break end
+                    
+                    
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("TextLabel") and v.Parent.Parent.Parent.Parent.Name == ("Stall1") and v.Text == ("Unclaimed") then
+                            print("Stalls open")
+                            for _,v in pairs(game.Workspace:GetDescendants()) do
+                                if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Name == ("Stall1") then
+                                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+                                    if ProximityPromptService.PromptShown then
+                                        for _,v in pairs(workspace:GetDescendants()) do
+                                            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                                                print(v.Name)
+                                                v:FireServer()
+                                            end
+                                        end
+                                        fireproximityprompt(v, 1, true)
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    
+                    
+                end
+            end)
+        end
+    end)
+
+    MicUpStandControlSection:NewToggle("Stand 4", "Waits for the stand to open to claim it.", function(state)
+        if state then
+            getgenv().Stand2Reservation = true;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    
+                    if not getgenv().Stand2Reservation == true then break end
+                    
+                    
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("TextLabel") and v.Parent.Parent.Parent.Parent.Name == ("Stall2") and v.Text == ("Unclaimed") then
+                            print("Stalls open")
+                            for _,v in pairs(game.Workspace:GetDescendants()) do
+                                if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Name == ("Stall2") then
+                                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+                                    if ProximityPromptService.PromptShown then
+                                        for _,v in pairs(workspace:GetDescendants()) do
+                                            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                                                print(v.Name)
+                                                v:FireServer()
+                                            end
+                                        end
+                                        fireproximityprompt(v, 1, true)
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    
+                    
+                end
+            end)
+        else
+            getgenv().Stand2Reservation = false;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    
+                    if not getgenv().Stand2Reservation == true then break end
+                    
+                    
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("TextLabel") and v.Parent.Parent.Parent.Parent.Name == ("Stall2") and v.Text == ("Unclaimed") then
+                            print("Stalls open")
+                            for _,v in pairs(game.Workspace:GetDescendants()) do
+                                if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Name == ("Stall2") then
+                                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+                                    if ProximityPromptService.PromptShown then
+                                        for _,v in pairs(workspace:GetDescendants()) do
+                                            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                                                print(v.Name)
+                                                v:FireServer()
+                                            end
+                                        end
+                                        fireproximityprompt(v, 1, true)
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    
+                    
+                end
+            end)
+        end
+    end)
+
+    MicUpStandControlSection:NewToggle("Stand 5", "Waits for the stand to open to claim it.", function(state)
+        if state then
+            getgenv().Stand3Reservation = true;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    
+                    if not getgenv().Stand3Reservation == true then break end
+                    
+                    
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("TextLabel") and v.Parent.Parent.Parent.Parent.Name == ("Stall3") and v.Text == ("Unclaimed") then
+                            print("Stalls open")
+                            for _,v in pairs(game.Workspace:GetDescendants()) do
+                                if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Name == ("Stall3") then
+                                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+                                    if ProximityPromptService.PromptShown then
+                                        for _,v in pairs(workspace:GetDescendants()) do
+                                            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                                                print(v.Name)
+                                                v:FireServer()
+                                            end
+                                        end
+                                        fireproximityprompt(v, 1, true)
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    
+                    
+                end
+            end)
+        else
+            getgenv().Stand3Reservation = false;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    
+                    if not getgenv().Stand3Reservation == true then break end
+                    
+                    
+                    for _,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("TextLabel") and v.Parent.Parent.Parent.Parent.Name == ("Stall3") and v.Text == ("Unclaimed") then
+                            print("Stalls open")
+                            for _,v in pairs(game.Workspace:GetDescendants()) do
+                                if v:IsA("ProximityPrompt") and v.Parent.Name == ("ProxPart") and v.Parent.Parent.Name == ("Stall3") then
+                                    Game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+                                    if ProximityPromptService.PromptShown then
+                                        for _,v in pairs(workspace:GetDescendants()) do
+                                            if v:IsA("RemoteEvent") and v.Name == ("CloseStall") then
+                                                print(v.Name)
+                                                v:FireServer()
+                                            end
+                                        end
+                                        fireproximityprompt(v, 1, true)
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    
+                    
+                end
+            end)
+        end
     end)
 
 
@@ -5806,8 +6204,8 @@ if game.PlaceId == 6884319169 then
     end)
 ]]
     --Mic Up Trolling
+    --[[ Stair Deleter and Spleef Deleter [ UN ARCHIVED ]]
     MicUpTrollingSection:NewButton("Make Stairs Vanish", "Wait till stairs fully reappear before using again", function()
-    --stair deleter
         plrhead = game.Players.LocalPlayer.Character.Head
 
         for _,v in pairs(workspace:GetDescendants()) do
@@ -5841,6 +6239,8 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
+ 
+
     MicUpTrollingSection:NewButton("Fill All TicTacToe Boards", "VERY self explanitory.", function()
         for _,v in pairs(workspace:GetDescendants()) do
             if v:IsA("Part") and v.Name == ("Detector1") or v.Name == ("Detector2") or v.Name == ("Detector3") or v.Name == ("Detector4") or v.Name == ("Detector5") or v.Name == ("Detector6") or v.Name == ("Detector7") or v.Name == ("Detector8") or v.Name == ("Detector9") and v.Parent.Name == ("Tic Tac Toe")  then
@@ -5849,6 +6249,254 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
+
+
+    --[[ bathroom ARCHIVED ]
+    MicUpTrollingSection:NewToggle("Possess Bathroom", "Kinda what it sounds like. (WILL LAG)", function(state)
+        if state then
+            getgenv().BathroomPossessed = true;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    if not getgenv().BathroomPossessed == true then break end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("Toilet") then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Name == ("Handle1") and v.Parent.Parent.Name == ("CloseDoor") then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Name == ("LockPart") and v.Parent.Orientation.Y == 0 then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Name == ("LockPart") and v.Parent.Orientation.Y == 90 then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("OpenDoor") and v.Parent.Parent.Door.Transparency == 0 then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("HotTapHandle") and v.Parent.Parent.Parent.HotOn.Value == false then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("HotTapHandle") and v.Parent.Parent.Parent.HotOn.Value == true then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("ColdTapHandle") and v.Parent.Parent.Parent.ColdOn.Value == false then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("ColdTapHandle") and v.Parent.Parent.Parent.ColdOn.Value == true then
+                                    print(v.Name)
+                                    fireclickdetector(v)
+                            end
+                        end
+                    
+                end
+            end)
+        else
+            getgenv().BathroomPossessed = false;
+
+            local ProximityPromptService = game:GetService("ProximityPromptService")
+            local RunService = game:GetService("RunService")
+            local plr = game.Players.LocalPlayer
+            local chr = plr.Character
+            
+            spawn(function()
+                local plrhead = game.Players.LocalPlayer.Character.Head
+                local chr = game.Players.LocalPlayer.Character
+                while wait() do
+                    if not getgenv().BathroomPossessed == true then break end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("Toilet") then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Name == ("Handle1") and v.Parent.Parent.Name == ("CloseDoor") then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Name == ("LockPart") and v.Parent.Orientation.Y == 0 then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Name == ("LockPart") and v.Parent.Orientation.Y == 90 then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("OpenDoor") and v.Parent.Parent.Door.Transparency == 0 then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("HotTapHandle") and v.Parent.Parent.Parent.HotOn.Value == false then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("HotTapHandle") and v.Parent.Parent.Parent.HotOn.Value == true then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("ColdTapHandle") and v.Parent.Parent.Parent.ColdOn.Value == false then
+                                print(v.Name)
+                                fireclickdetector(v)
+                            end
+                        end
+                    
+                        for _,v in pairs(workspace:GetDescendants()) do
+                            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("ColdTapHandle") and v.Parent.Parent.Parent.ColdOn.Value == true then
+                                    print(v.Name)
+                                    fireclickdetector(v)
+                            end
+                        end
+                    
+                end
+            end)
+        end
+    end)
+
+    local MicUpBathroomSection = MicUpTrolling:NewSection("Bathroom Controller")
+
+    MicUpBathroomSection:NewButton("Unlock All Doors", "Unlocks all the bathroom doors.", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ClickDetector") and v.Parent.Name == ("LockPart") and v.Parent.Orientation.Y == 90 then
+                print(v.Name)
+                fireclickdetector(v)
+            end
+        end
+    end)
+    MicUpBathroomSection:NewButton("Lock All Doors", "Locks all the bathroom doors.", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ClickDetector") and v.Parent.Name == ("LockPart") and v.Parent.Orientation.Y == 0 then
+                print(v.Name)
+                fireclickdetector(v)
+            end
+        end
+    end)
+    MicUpBathroomSection:NewButton("Open All Doors", "Opens all the bathroom doors.", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ClickDetector") and v.Parent.Name == ("LockPart") and v.Parent.Orientation.Y == 90 then
+                print(v.Name)
+                fireclickdetector(v)
+            end
+        end
+
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ClickDetector") and v.Parent.Name == ("Handle1") and v.Parent.Parent.Name == ("CloseDoor") and v.Parent.Parent.Door.Transparency == 0 then
+                print(v.Name)
+                fireclickdetector(v)
+            end
+        end
+    end)
+    MicUpBathroomSection:NewButton("Close All Doors", "Closes all the bathroom doors.", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ClickDetector") and v.Parent.Name == ("LockPart") and v.Parent.Orientation.Y == 90 then
+                print(v.Name)
+                fireclickdetector(v)
+            end
+        end
+
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("OpenDoor") and v.Parent.Parent.Door.Transparency == 0 then
+                print(v.Name)
+                fireclickdetector(v)
+            end
+        end
+    end)
+    MicUpBathroomSection:NewButton("Hot Faucet On", "Turns on the hot water for the faucets.", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("HotTapHandle") and v.Parent.Parent.Parent.HotOn.Value == false then
+                print(v.Name)
+                fireclickdetector(v)
+            end
+        end
+    end)
+    MicUpBathroomSection:NewButton("Hot Faucet Off", "Turns off the hot water for the faucets.", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("HotTapHandle") and v.Parent.Parent.Parent.HotOn.Value == true then
+                print(v.Name)
+                fireclickdetector(v)
+            end
+        end
+    end)
+    MicUpBathroomSection:NewButton("Cold Faucet On", "Turns on the cold water for the faucets.", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("ColdTapHandle") and v.Parent.Parent.Parent.ColdOn.Value == false then
+                print(v.Name)
+                fireclickdetector(v)
+            end
+        end
+    end)
+    MicUpBathroomSection:NewButton("Cold Faucet Off", "Turns off the cold water for the faucets.", function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ClickDetector") and v.Parent.Parent.Name == ("ColdTapHandle") and v.Parent.Parent.Parent.ColdOn.Value == true then
+                print(v.Name)
+                fireclickdetector(v)
+            end
+        end
+    end)
+]]
+
+--[[ Houses UN ARCHIVED ]]
     MicUpTrollingSection:NewButton("Unlock All Doors", "Unlocks all the houses doors.", function()
         for _,v in pairs(workspace:GetDescendants()) do
             if v:IsA("Part") and v.Name == ("Handle") and v:FindFirstChild("ClickDetector") and v.Parent.Name == ("DeadBolt") and v.Parent.Parent.Locked.Value == true  then
@@ -5880,6 +6528,7 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
+
 
 --[[ deprecated ]
     getgenv().Toggled = false
