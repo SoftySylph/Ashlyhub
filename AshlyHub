@@ -6204,7 +6204,7 @@ if game.PlaceId == 6884319169 then
     end)
 ]]
     --Mic Up Trolling
-    --[[ Stair Deleter and Spleef Deleter [ UN ARCHIVED ]]
+    --[[ Stair Deleter and Spleef Deleter [ ARCHIVED ]
     MicUpTrollingSection:NewButton("Make Stairs Vanish", "Wait till stairs fully reappear before using again", function()
         plrhead = game.Players.LocalPlayer.Character.Head
 
@@ -6239,7 +6239,7 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
- 
+ ]]
 
     MicUpTrollingSection:NewButton("Fill All TicTacToe Boards", "VERY self explanitory.", function()
         for _,v in pairs(workspace:GetDescendants()) do
@@ -6251,7 +6251,7 @@ if game.PlaceId == 6884319169 then
     end)
 
 
-    --[[ bathroom ARCHIVED ]
+    --[[ bathroom ]]
     MicUpTrollingSection:NewToggle("Possess Bathroom", "Kinda what it sounds like. (WILL LAG)", function(state)
         if state then
             getgenv().BathroomPossessed = true;
@@ -6494,9 +6494,9 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
-]]
 
---[[ Houses UN ARCHIVED ]]
+
+--[[ Houses ARCHIVED ]
     MicUpTrollingSection:NewButton("Unlock All Doors", "Unlocks all the houses doors.", function()
         for _,v in pairs(workspace:GetDescendants()) do
             if v:IsA("Part") and v.Name == ("Handle") and v:FindFirstChild("ClickDetector") and v.Parent.Name == ("DeadBolt") and v.Parent.Parent.Locked.Value == true  then
@@ -6528,6 +6528,7 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
+]]
 
 
 --[[ deprecated ]
