@@ -5210,6 +5210,109 @@ PlayerModificationsSection:NewSlider("Jump Height", "Generic jump modifier.", 20
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
 end)
 
+if game.PlaceId == 2413927524 then
+    local Rake = Window:NewTab("The Rake Utilities")
+    local RakeSection = Rake:NewSection("Utilities")
+    local RakeESP = Window:NewTab("The Rake Esp")
+    local RakeESPSection = RakeESP:NewSection("Esp")
+
+    RakeSection:NewToggle("Fullbright", "Yea", function(state)
+        if state then
+            --blur disable
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+
+            for i , v in pairs(game:GetDescendants()) do
+                if v:IsA("BlurEffect") then
+                    v.Enabled = false
+                end
+            end
+            for i , v in pairs(game:GetDescendants()) do
+                if v.Name == ("DepthOfField") then
+                    v.Enabled = false
+                end
+            end
+
+            if brightLoop then
+                brightLoop:Disconnect()
+            end
+
+            local function brightFunc()
+                Lighting.Brightness = 2
+                Lighting.ClockTime = 14
+                Lighting.FogEnd = 100000
+                Lighting.GlobalShadows = false
+                Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+            end
+
+            brightLoop = RunService.RenderStepped:Connect(brightFunc)
+            print("Fullbright On")
+
+        else
+
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+
+            for i , v in pairs(game:GetDescendants()) do
+                if v:IsA("BlurEffect") then
+                    v.Enabled = true
+                end
+            end
+            for i , v in pairs(game:GetDescendants()) do
+                if v.Name == ("DepthOfField") then
+                    v.Enabled = true
+                end
+            end
+
+            if brightLoop then
+                brightLoop:Disconnect()
+            end
+
+            print("Fullbright Off")
+
+        end
+    end)
+
+end
+
 if game.PlaceId == 6884319169 then
     local MicUpTrolling = Window:NewTab("Mic Up Trolling")
     local MicUpTrollingSection = MicUpTrolling:NewSection("Mic Up Trolling")
