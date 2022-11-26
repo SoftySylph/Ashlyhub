@@ -3,20 +3,23 @@
 --]]
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
-local Window = Library.CreateLib("AshlyHub", "Sentinel")
 
-local About = Window:NewTab("About")
-local AboutSection = About:NewSection("About")
+local colors = {
+    SchemeColor = Color3.fromRGB(0,255,255),
+    Background = Color3.fromRGB(0, 0, 0),
+    Header = Color3.fromRGB(0, 0, 0),
+    TextColor = Color3.fromRGB(255,255,255),
+    ElementColor = Color3.fromRGB(20, 20, 20)
+}
+
+local Window = Library.CreateLib("AshlyHub", colors)
+
 local Essentials = Window:NewTab("Essentials")
 local EssentialsSection = Essentials:NewSection("Admin GUI's")
 local PlayerModifications = Window:NewTab("Player Modification's")
 local PlayerModificationsSection = PlayerModifications:NewSection("Player Modification's")
---About
-AboutSection:NewLabel("This is a HUB of scripts for me and my friends enjoy!")
-AboutSection:NewKeybind("Toggle GUI", "Opens and closes the GUI.", Enum.KeyCode.M, function()
-	Library:ToggleUI()
-end)
-AboutSection:NewLabel("The compatible games are above the script.")
+
+
 
 --Essentials
 EssentialsSection:NewButton("Infinite Yield", "Loads Infinite Yield, an \"admin\" menu.", function()
@@ -5203,20 +5206,335 @@ end)
 --[[ BOTTOM OF TOPKEK ]]
 
 --Player modifications
-PlayerModificationsSection:NewSlider("Walkspeed", "Generic walkspeed modifier.", 200, 16, function(s)
+PlayerModificationsSection:NewSlider("Walkspeed", "Walkspeed Modifier.", 200, 16, function(s)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
 end)
-PlayerModificationsSection:NewSlider("Jump Height", "Generic jump modifier.", 200, 30, function(s)
+PlayerModificationsSection:NewSlider("Jump Height", "Jump Modifier.", 200, 30, function(s)
     game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
 end)
+PlayerModificationsSection:NewSlider("Fov", "Fov Modifier.", 120, 0, function(s)
+    game:GetService("Workspace").Camera.FieldOfView = s
+end)
 
+--[[ The Rake ]]
 if game.PlaceId == 2413927524 then
     local Rake = Window:NewTab("The Rake Utilities")
     local RakeSection = Rake:NewSection("Utilities")
     local RakeESP = Window:NewTab("The Rake Esp")
     local RakeESPSection = RakeESP:NewSection("Esp")
+    local RakeData = Window:NewTab("Data")
+    local RakeDataSection = RakeData:NewSection("Statistics")
 
-    RakeSection:NewToggle("Fullbright", "Yea", function(state)
+    RakeESPSection:NewToggle("Player Chams", "Highlights the players.", function(state)
+        if state then
+
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+            local players = game.Players:GetPlayers()
+
+
+            if plrchamLoop then
+                plrchamLoop:Disconnect()
+            end
+
+            local function playerchamFunc()
+                for i,v in pairs(players) do
+                    if v.Character:FindFirstChild("highlighterhehe") == nil then
+                        local esp = Instance.new("Highlight")
+                        esp.Name = "highlighterhehe"
+                        esp.FillTransparency = 0.5
+                        esp.FillColor = Color3.new(0, 1, 0)
+                        esp.OutlineColor = Color3.new(0, 1, 0)
+                        esp.OutlineTransparency = 0.25
+                        esp.Parent = v.Character
+                    end
+                end
+            end
+
+            plrchamLoop = RunService.RenderStepped:Connect(playerchamFunc)
+            print("Esp On")
+
+
+
+
+
+
+        else
+
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+            local players = game.Players:GetPlayers()
+
+
+            if plrchamLoop then
+                for i,v in pairs(workspace:GetDescendants()) do
+                    if v.Name == ("highlighterhehe") then
+                        print(v.Name)
+                        v:Destroy()
+                    end
+                end
+                plrchamLoop:Disconnect()
+            end
+
+
+
+
+        end
+    end)
+
+    RakeESPSection:NewToggle("Rake Chams", "Highlights the rake.", function(state)
+        if state then
+
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+            local players = game.Players:GetPlayers()
+
+
+            if rakechamLoop then
+                rakechamLoop:Disconnect()
+            end
+
+            local function rakechamFunc()
+                for i,v in pairs(workspace:GetDescendants()) do
+                    if v.Name == ("Rake") and v:FindFirstChild("rakehighlighterhehe") == nil then
+                        local esp = Instance.new("Highlight")
+                        esp.Name = "rakehighlighterhehe"
+                        esp.FillTransparency = 0.5
+                        esp.FillColor = Color3.new(1, 0, 0)
+                        esp.OutlineColor = Color3.new(1, 0, 0)
+                        esp.OutlineTransparency = 0
+                        esp.Parent = v
+                    end
+                end
+            end
+
+            rakechamLoop = RunService.RenderStepped:Connect(rakechamFunc)
+            print("Esp On")
+
+
+
+
+
+
+        else
+
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+            local players = game.Players:GetPlayers()
+
+
+            if rakechamLoop then
+                for i,v in pairs(workspace:GetDescendants()) do
+                    if v.Name == ("rakehighlighterhehe") then
+                        print(v.Name)
+                        v:Destroy()
+                    end
+                end
+                rakechamLoop:Disconnect()
+            end
+
+
+
+
+        end
+    end)
+
+    local Time = RakeDataSection:NewLabel("Time: ")
+    local Powersources = RakeDataSection:NewLabel("House Door: ".. "House Light: ".. "Tower Light: ")
+    local ScrapPoints = RakeDataSection:NewLabel("Points of Scrap: ")
+    local RakeStatus = RakeDataSection:NewLabel("Sleeping: ".. "Blood Hour: ")
+    local Health = RakeDataSection:NewLabel("Health: ")
+    local SHDoorCheck = "Off"
+    local SHLightCheck = "Off"
+    local TowerLightCheck = "Off"
+    local RakeStatusCheck = "Sleeping"
+    local BloodStatusCheck = "No"
+
+
+    RakeDataSection:NewToggle("Data Checker", "Keeps Data Counters up to date.", function(state)
+        if state then
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+
+
+            if dataLoop then
+                dataLoop:Disconnect()
+            end
+
+            local function dataFunc()
+                if game:GetService("ReplicatedStorage").PowerValues.UsingSHDoor.Value == true then
+                    SHDoorCheck = "On"
+                else
+                    SHDoorCheck = "Off"
+                end
+
+                if game:GetService("ReplicatedStorage").PowerValues.UsingSHLight.Value == true then
+                    SHLightCheck = "On"
+                else
+                    SHLightCheck = "Off"
+                end
+
+                if game:GetService("ReplicatedStorage").PowerValues.UsingTowerLight.Value == true then
+                    TowerLightCheck = "On"
+                else
+                    TowerLightCheck = "Off"
+                end
+
+                if game:GetService("ReplicatedStorage").Night.Value == false then
+                    RakeStatusCheck = "Sleeping... "
+                else
+                    RakeStatusCheck = "Hunting... "
+                end
+
+                if game:GetService("ReplicatedStorage").InitiateBloodHour.Value == false then
+                    BloodStatusCheck = "No"
+                else
+                    BloodStatusCheck = "YES RUN!!"
+                end
+
+                Time:UpdateLabel("Time :".. game:GetService("ReplicatedStorage").Timer.Value.. ", Power: ".. game:GetService("ReplicatedStorage").PowerValues.PowerLevel.Value)
+                Powersources:UpdateLabel("House Door: ".. SHDoorCheck.. ", House Light: ".. SHLightCheck.. ", Tower Light: ".. TowerLightCheck)
+                ScrapPoints:UpdateLabel("Points of Scrap: ".. game:GetService("Players").LocalPlayer.Backpack.ScrapFolder.Points.Value.. " Last Scrap Collected Level: ".. game:GetService("Players").LocalPlayer.Backpack.ScrapFolder.LastLVL.Value)
+                Health:UpdateLabel("Rakes Health: ".. game.workspace.Rake.Monster.Health)
+                RakeStatus:UpdateLabel(RakeStatusCheck.. " Blood Hour Status: ".. BloodStatusCheck)
+
+            end
+
+            dataLoop = RunService.RenderStepped:Connect(dataFunc)
+            print("Data On")
+
+        else
+
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+
+            if dataLoop then
+                dataLoop:Disconnect()
+            end
+
+            print("Data Off")
+
+        end
+    end)
+
+    
+    
+
+    RakeSection:NewToggle("Fullbright", "If I need to explain this you are definitely special ed.", function(state)
         if state then
             --blur disable
             UserInputService = game:GetService("UserInputService")
@@ -5262,6 +5580,7 @@ if game.PlaceId == 2413927524 then
                 Lighting.FogEnd = 100000
                 Lighting.GlobalShadows = false
                 Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+                game:GetService("Lighting").BloodHourColor = false
             end
 
             brightLoop = RunService.RenderStepped:Connect(brightFunc)
@@ -5302,6 +5621,10 @@ if game.PlaceId == 2413927524 then
                 end
             end
 
+            if game:GetService("ReplicatedStorage").InitiateBloodHour.Value == true then
+                game:GetService("Lighting").BloodHourColor = true
+            end
+
             if brightLoop then
                 brightLoop:Disconnect()
             end
@@ -5311,7 +5634,222 @@ if game.PlaceId == 2413927524 then
         end
     end)
 
+    RakeSection:NewToggle("No Boundries", "Wow, really?", function(state)
+        if state then
+
+            for i , v in pairs(game:GetDescendants()) do
+                if v:IsA("Part") and v.Parent.Name == ("InvisibleWalls") then
+                    v.CanCollide = false
+                end
+            end
+
+        else
+
+            for i , v in pairs(game:GetDescendants()) do
+                if v:IsA("Part") and v.Parent.Name == ("InvisibleWalls") then
+                    v.CanCollide = true
+                end
+            end
+
+        end
+    end)
+
+    --[[ Item aura ARCHIVED ]    
+    RakeSection:NewToggle("Item Aura", "Grabs nearby items like flares and scrap.", function(state)
+        if state then
+
+                        UserInputService = game:GetService("UserInputService")
+                        TweenService = game:GetService("TweenService")
+                        HttpService = game:GetService("HttpService")
+                        MarketplaceService = game:GetService("MarketplaceService")
+                        RunService = game:GetService("RunService")
+                        TeleportService = game:GetService("TeleportService")
+                        StarterGui = game:GetService("StarterGui")
+                        GuiService = game:GetService("GuiService")
+                        Lighting = game:GetService("Lighting")
+                        ContextActionService = game:GetService("ContextActionService")
+                        NetworkClient = game:GetService("NetworkClient")
+                        ReplicatedStorage = game:GetService("ReplicatedStorage")
+                        GroupService = game:GetService("GroupService")
+                        PathService = game:GetService("PathfindingService")
+                        SoundService = game:GetService("SoundService")
+                        Teams = game:GetService("Teams")
+                        StarterPlayer = game:GetService("StarterPlayer")
+                        InsertService = game:GetService("InsertService")
+                        ChatService = game:GetService("Chat")
+                        ProximityPromptService = game:GetService("ProximityPromptService")
+                        StatsService = game:GetService("Stats")
+            
+            
+                        if itemAuraLoop then
+                            itemAuraLoop:Disconnect()
+                        end
+            
+                        local function itemAuraFunc()
+                            local playerHead = game.Players.localPlayer.Character.Head
+                            
+                            for index , v in pairs(workspace:GetDescendants()) do
+                                if v:IsA("TouchTransmitter") and v.Parent.Name == ("Scrap") or v.Parent.Name == ("FlareGun") then
+                                    wait(0.1)
+                                    firetouchinterest(playerHead, v.Parent, 0)
+                                end
+                            end
+                            
+                            for index , v in pairs(workspace:GetDescendants()) do
+                                if v:IsA("TouchTransmitter") and v.Parent.Name == ("Scrap") or v.Parent.Name == ("FlareGun") then
+                                    wait(0.1)
+                                    firetouchinterest(playerHead, v.Parent, 1)
+                                end
+                            end
+                        end
+            
+                        itemAuraLoop = RunService.RenderStepped:Connect(itemAuraFunc)
+
+        else
+
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+
+
+            if itemAuraLoop then
+                itemAuraLoop:Disconnect()
+            end
+
+        end
+    end)
+    ]]
+
+    RakeSection:NewToggle("Third Person", "Again? Really?", function(state)
+        if state then
+
+            game.Players.LocalPlayer.CameraMaxZoomDistance = 500
+
+        else
+
+            game.Players.LocalPlayer.CameraMaxZoomDistance = 0.5
+
+        end
+    end)
+
+
+    RakeSection:NewToggle("A-Train", "It means speedy mode dumbass.", function(state)
+        if state then
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+
+
+
+            if speedLoop then
+                speedLoop:Disconnect()
+            end
+
+            local function speedFunc()
+                if game.Players.LocalPlayer.Character.Humanoid.WalkSpeed >= 20 then
+                    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 30
+                end
+            end
+
+            speedLoop = RunService.RenderStepped:Connect(speedFunc)
+            print("Speed On")
+
+        else
+
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+
+
+
+            if speedLoop then
+                speedLoop:Disconnect()
+            end
+
+            print("Speed Off")
+
+        end
+    end)
+
+    RakeSection:NewKeybind("Open Safehouse Door", "Really?", Enum.KeyCode.F, function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("RemoteEvent") and v.Parent.Name == ("Door") and v.Name == ("RemoteEvent") then
+                v:FireServer("Door")
+            end
+        end
+    end)
+    RakeSection:NewKeybind("Turn On Safehouse Light", "Really? Seriously. Stop.", Enum.KeyCode.F, function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("RemoteEvent") and v.Parent.Name == ("Door") and v.Name == ("RemoteEvent") then
+                v:FireServer("Light")
+            end
+        end
+    end)
+    RakeSection:NewKeybind("Turn On Tower Light", "Stop.", Enum.KeyCode.F, function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("RemoteEvent") and v.Parent.Name == ("Lights") and v.Name == ("RemoteEvent") then
+                v:FireServer("Light")
+            end
+        end
+    end)
+
 end
+
+
 
 if game.PlaceId == 6884319169 then
     local MicUpTrolling = Window:NewTab("Mic Up Trolling")
@@ -6726,6 +7264,92 @@ elseif game.PlaceId == 537413528 then
     BABFTSection:NewButton("Image Builder", "Automatically builds Images.", function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/StenDirt/Trash-Game/main/Script2.lua"))()
     end)
+
+    local ATS = Window:NewTab("Ashly's Ball Controller")
+    local ATSYBSection = ATS:NewSection("Your Own Soccer Balls")
+
+    ATSYBSection:NewTextBox("U/D", "Launches Balls dwn (NEGATIVE) or up (POSITIVE).", function(txt)
+        local ohVector31 = Vector3.new(0, txt, 0)
+        local plrs = game:GetService("Players")
+        local plrname = plrs.LocalPlayer.Name
+
+        for i, v in pairs(workspace:GetDescendants()) do
+            if v.Name == ("KickRE") and v.Parent.Parent.Name == "SoccerBall" and v.Parent.Parent:WaitForChild("Tag").Value == plrname then
+                v:FireServer(ohVector31)
+            end
+        end
+    end)
+    ATSYBSection:NewTextBox("L/R", "Launches Balls rht (NEGATIVE) or lft (POSITIVE).", function(txt)
+        local ohVector31 = Vector3.new(txt, 0, 0)
+        local plrs = game:GetService("Players")
+        local plrname = plrs.LocalPlayer.Name
+
+        for i, v in pairs(workspace:GetDescendants()) do
+            if v.Name == ("KickRE") and v.Parent.Parent.Name == "SoccerBall" and v.Parent.Parent:WaitForChild("Tag").Value == plrname then
+                v:FireServer(ohVector31)
+            end
+        end
+    end)
+    ATSYBSection:NewTextBox("F/B", "Launches Balls bwd (NEGATIVE) or fwd (POSITIVE)", function(txt)
+        local ohVector31 = Vector3.new(0, 0, txt)
+        local plrs = game:GetService("Players")
+        local plrname = plrs.LocalPlayer.Name
+
+        for i, v in pairs(workspace:GetDescendants()) do
+            if v.Name == ("KickRE") and v.Parent.Parent.Name == "SoccerBall" and v.Parent.Parent:WaitForChild("Tag").Value == plrname then
+                v:FireServer(ohVector31)
+            end
+        end
+    end)
+    ATSYBSection:NewButton("KILL YOUR SOCCER BALLS", "Destroys all your balls and attatched components.", function()
+        local ohVector31 = Vector3.new(-math.huge, -math.huge, -math.huge)
+        local plrs = game:GetService("Players")
+        local plrname = plrs.LocalPlayer.Name
+        
+        for i, v in pairs(workspace:GetDescendants()) do
+            if v.Name == ("KickRE") and v.Parent.Parent.Name == "SoccerBall" and v.Parent.Parent:WaitForChild("Tag").Value == plrname then
+                print(v.Name)
+                v:FireServer(ohVector31)
+            end
+        end
+    end)
+
+    local ATSYBQLSection = ATS:NewSection("Quick Launch Your Soccer Balls.")
+
+    ATSYBQLSection:NewKeybind("Launch up", "Launches it up by the default amount.", Enum.KeyCode.U, function()
+        local ohVector31 = Vector3.new(0, 1, 0)
+        local plrs = game:GetService("Players")
+        local plrname = plrs.LocalPlayer.Name
+        
+        for i, v in pairs(workspace:GetDescendants()) do
+            if v.Name == ("KickRE") and v.Parent.Parent.Name == "SoccerBall" and v.Parent.Parent:WaitForChild("Tag").Value == plrname then
+                print(v.Name)
+                v:FireServer(ohVector31)
+            end
+        end
+    end)
+    ATSYBQLSection:NewKeybind("Launch down", "Launches it down by the default amount.", Enum.KeyCode.U, function()
+        local ohVector31 = Vector3.new(0, -1, 0)
+        local plrs = game:GetService("Players")
+        local plrname = plrs.LocalPlayer.Name
+        
+        for i, v in pairs(workspace:GetDescendants()) do
+            if v.Name == ("KickRE") and v.Parent.Parent.Name == "SoccerBall" and v.Parent.Parent:WaitForChild("Tag").Value == plrname then
+                print(v.Name)
+                v:FireServer(ohVector31)
+            end
+        end
+    end)
+
+    local ATEAMS = Window:NewTab("Ashly's Team Stuff")
+    local ATEAMSSection = ATEAMS:NewSection("Change Teams: ")
+
+    ATEAMSSection:NewDropdown("Change Team", "Changes to the selected team.", {"white", "black", "red", "green", "blue", "yellow", "magenta"}, function(currentOption)
+
+        print(currentOption)
+        workspace.ChangeTeam:FireServer(game:GetService("Teams").white)
+    end)
+    
 
 elseif game.PlaceId == 189707 then
     local NaturalDisasterSurvival = Window:NewTab("Natural Disasters")
@@ -11855,3 +12479,42 @@ elseif game.PlaceId == 155615604 then
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(918.77,100,2379.07)
     end)
 end
+
+--About
+
+local About = Window:NewTab("Info")
+local AboutSection = About:NewSection("Credits:")
+
+AboutSection:NewLabel("Ashly, Ashly, and Ashly lol.")
+
+local GUIKEYSection = About:NewSection("Settings: ")
+
+GUIKEYSection:NewKeybind("Toggle GUI", "Opens and closes the GUI.", Enum.KeyCode.M, function()
+	Library:ToggleUI()
+end)
+
+local AboutCOLORSection = About:NewSection("Theme: ")
+
+for theme, color in pairs(colors) do
+    AboutCOLORSection:NewColorPicker(theme, "Change your "..theme, color, function(color3)
+        Library:ChangeColor(theme, color3)
+    end)
+end
+
+local notifSound = Instance.new("Sound",workspace)
+notifSound.PlaybackSpeed = 1
+notifSound.Volume = 0.5
+notifSound.SoundId = "rbxassetid://1548304764"
+notifSound.PlayOnRemove = true
+notifSound:Destroy()
+
+game.StarterGui:SetCore("SendNotification", {Title = "[AshlyHub]", Text = "AshlyHub booted successfully.", Icon = "rbxassetid://505845268", Duration = 5})
+
+wait(5.65)
+
+local wooshSound = Instance.new("Sound",workspace)
+wooshSound.PlaybackSpeed = 1
+wooshSound.Volume = 0.1548304764
+wooshSound.SoundId = "rbxassetid://858508159"
+wooshSound.PlayOnRemove = true
+wooshSound:Destroy()
