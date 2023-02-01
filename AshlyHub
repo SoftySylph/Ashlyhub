@@ -16,12 +16,78 @@ local Window = Library.CreateLib("AshlyHub", colors)
 
 local Essentials = Window:NewTab("Essentials")
 local EssentialsSection = Essentials:NewSection("Admin GUI's")
+local EssentialsGRAPHICSection = Essentials:NewSection("Graphics")
 local PlayerModifications = Window:NewTab("Player Modification's")
 local PlayerModificationsSection = PlayerModifications:NewSection("Player Modification's")
 
 
 
 --Essentials
+
+EssentialsGRAPHICSection:NewButton("Lighting and SB", "Changes skybox, puts some clouds, and changes Lighting settings", function()
+    sethiddenproperty(game.Lighting,"Technology",Enum.Technology.Future)
+    sethiddenproperty(game.Lighting,"ShadowSoftness",0)
+    sethiddenproperty(game.Lighting,"EnvironmentDiffuseScale",0.222)
+    sethiddenproperty(game.Lighting,"EnvironmentSpecularScale",1)
+    game:GetService("Lighting").Ambient = Color3.new(0, 0, 0)
+    game:GetService("Lighting").ClockTime = 7.793
+    game:GetService("Lighting").GeographicLatitude = 52.58
+    game:GetService("Lighting").OutdoorAmbient = Color3.new(0.25490196078, 0.28235294117, 0.20784313725)
+    game:GetService("Lighting").ColorShift_Top = Color3.new(1, .755, .576)
+    
+    
+    for i,v in pairs(game:GetService("Lighting"):GetDescendants()) do
+        v:destroy() 
+    end
+    
+    for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+        if v.Parent.Name == "Terrain" then
+            v:destroy() 
+        end
+    end
+    
+    
+    local sky = Instance.new("Sky", game:GetService("Lighting"))
+    
+    sky.SkyboxBk = "http://www.roblox.com/asset/?id=252760981"
+    sky.SkyboxDn = "http://www.roblox.com/asset/?id=252763035"
+    sky.SkyboxFt = "http://www.roblox.com/asset/?id=252761439"
+    sky.SkyboxLf = "http://www.roblox.com/asset/?id=252760980"
+    sky.SkyboxRt = "http://www.roblox.com/asset/?id=252760986"
+    sky.SkyboxUp = "http://www.roblox.com/asset/?id=252762652"
+    sky.SunTextureId = "http://www.roblox.com/asset/?id=1345009717"
+    sky.SunAngularSize = 4
+    
+    local bloom = Instance.new("BloomEffect", game:GetService("Lighting"))
+    bloom.Intensity = 0.6
+    bloom.Size = 20
+    bloom.Threshold = 1
+    
+    local ccr = Instance.new("ColorCorrectionEffect", game:GetService("Lighting"))
+    ccr.Brightness = -0.1
+    ccr.Contrast = 0.2
+    ccr.Saturation = 0
+    ccr.TintColor = Color3.new(1, 0.90196078431, 0.8431372549)
+    
+    local clouds = Instance.new("Clouds", game:GetService("Workspace").Terrain)
+    clouds.Cover = 0.69
+    clouds.Density = 1
+    
+    local atmos = Instance.new("Atmosphere", game:GetService("Lighting"))
+    atmos.Density = 0.3
+    atmos.Offset = 0
+    atmos.Glare = 0
+    atmos.Haze = 0
+    
+    for i,v in pairs(Workspace:GetDescendants()) do
+        if v:IsA("Part") or v:IsA("MeshPart") then
+            sethiddenproperty(v,"CastShadow",true)
+        end
+    end
+    
+
+end)
+
 EssentialsSection:NewButton("Infinite Yield", "Loads Infinite Yield, an \"admin\" menu.", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
@@ -5854,6 +5920,182 @@ end
 if game.PlaceId == 6884319169 then
     local MicUpTrolling = Window:NewTab("Mic Up Trolling")
     local MicUpTrollingSection = MicUpTrolling:NewSection("Mic Up Trolling")
+    
+    local MicUpMapControl = Window:NewTab("Mic Up Map")
+    local MicUpMapdntControlSection = MicUpMapControl:NewSection("Donut Shop")
+    
+    MicUpMapdntControlSection:NewButton("Make colorful again", "Brings back the old look and makes seats visible.", function()
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") then
+                v.Material = ("SmoothPlastic")
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("MeshPart") then
+                v.Material = ("SmoothPlastic")
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.BrickColor == BrickColor.new("Medium stone grey") then
+                v.BrickColor = BrickColor.new("Carnation pink")
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.BrickColor == BrickColor.new("Light grey") then
+                v.Color = Color3.new(1, 0.75686274509, 0.95686274509)
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("MeshPart") and v.BrickColor == BrickColor.new("Light grey") then
+                v.Color = Color3.new(1, 0.75686274509, 0.95686274509)
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("MeshPart") and v.BrickColor == BrickColor.new("Medium stone grey") then
+                v.BrickColor = BrickColor.new("Carnation pink")
+            end
+        end
+        --[[
+        for i,v in pairs(Workspace.Donutshop:GetDescendants()) do
+          if v:IsA("MeshPart") and v.CFrame == CFrame.new(-116.070808, 1.38348389, -84.6416168, 0.709442019, -0, -0.704763889, 0, 1, -0, 0.704763889, 0, 0.709442019) then
+            v.Color = Color3.new(1, 0.75686274509, 0.95686274509)
+          end
+          end]]
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Seat") then
+                v.Transparency = 0
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.BrickColor == BrickColor.new("Light blue") then
+                v.Material = ("Glass")
+                v.Transparency = 0.6
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("UnionOperation") and v.BrickColor == BrickColor.new("Light blue") then
+                v.Material = ("Glass")
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.BrickColor == BrickColor.new("Sand violet") then
+                v.Material = "Neon"
+                v.Color = Color3.new(0.70980392156, 0.43137254902, 0.61568627451)
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.BrickColor == BrickColor.new("Med. reddish violet") then
+                v.Material = "Neon"
+                v.Color = Color3.new(0.70980392156, 0.43137254902, 0.61568627451)
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.BrickColor == BrickColor.new("Fawn brown") then
+                v.Material = "Neon"
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.BrickColor == BrickColor.new("Steel blue") then
+                v.Material = "Neon"
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.BrickColor == BrickColor.new("Bright green") then
+                v.Material = "Neon"
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.BrickColor == BrickColor.new("Reddish lilac") then
+                v.Material = "Neon"
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("PointLight") and v.Parent.BrickColor == BrickColor.new("Carnation pink") then
+                v.Parent.BrickColor = BrickColor.new("Grey")
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("PointLight") and v.Parent.BrickColor == BrickColor.new("Lilac") then
+                v.Parent.BrickColor = BrickColor.new("Grey")
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.BrickColor == BrickColor.new("Grey") then
+                v.BrickColor = BrickColor.new("Grey")
+                v.Material = "Neon"
+            end
+        end
+        
+        local icing = game:GetService("Workspace").Donutshop.Icing
+        icing.Color = Color3.new(117, 150, 114)
+        icing.Material = ("Neon")
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("MeshPart") and v.BrickColor == BrickColor.new("Brown") then
+                v.Material = ("SmoothPlastic")
+                v.BrickColor = BrickColor.new("Nougat")
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("MeshPart") and v.BrickColor == BrickColor.new("CGA brown") then
+                v.Material = ("Neon")
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("MeshPart") and v.BrickColor == BrickColor.new("Bright bluish green") then
+                v.Material = ("Neon")
+            end
+        end
+        
+        game:GetService("Workspace").Donutshop.W.Transparency = 0
+        game:GetService("Workspace").Donutshop.W.Material = "Neon"
+        game:GetService("Workspace").Donutshop.W.Color = Color3.new(0.70980392156, 0.43137254902, 0.61568627451)
+        game:GetService("Workspace").Donutshop.l.Transparency = 0
+        game:GetService("Workspace").Donutshop.l.Material = "Neon"
+        game:GetService("Workspace").Donutshop.l.Color = Color3.new(0.70980392156, 0.43137254902, 0.61568627451)
+        game:GetService("Workspace").Donutshop.c.Transparency = 0
+        game:GetService("Workspace").Donutshop.c.Material = "Neon"
+        game:GetService("Workspace").Donutshop.c.Color = Color3.new(0.70980392156, 0.43137254902, 0.61568627451)
+        game:GetService("Workspace").Donutshop.o.Transparency = 0
+        game:GetService("Workspace").Donutshop.o.Material = "Neon"
+        game:GetService("Workspace").Donutshop.o.Color = Color3.new(0.70980392156, 0.43137254902, 0.61568627451)
+        game:GetService("Workspace").Donutshop.m.Transparency = 0
+        game:GetService("Workspace").Donutshop.m.Material = "Neon"
+        game:GetService("Workspace").Donutshop.m.Color = Color3.new(0.70980392156, 0.43137254902, 0.61568627451)
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("MeshPart") and v.Name == "e" then
+                v.Transparency = 0
+                v.Material = "Neon"
+                v.Color = Color3.new(0.70980392156, 0.43137254902, 0.61568627451)
+            end
+        end
+        
+        for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
+            if v:IsA("Part") and v.CFrame == CFrame.new(-126.470261, 9.19550133, -96.7711868, 0.709442019, -0, -0.704763889, 0, 1, -0, 0.704763889, 0, 0.709442019) then
+                v.BrickColor = BrickColor.new("Cyan")
+            end
+        end
+    end)
+    
     local MicUpStandControl = Window:NewTab("Mic Up Stand's")
     local MicUpStandControlSection = MicUpStandControl:NewSection("Wireless Stand Controller")
     
@@ -6890,6 +7132,176 @@ if game.PlaceId == 6884319169 then
             end
         end
     end)
+    
+    --[[        [ ARCHIVED ]
+    
+    MicUpTrollingSection:NewToggle("Dropper Slow", "Drops bloons.", function(state)
+        if state then
+
+        local ProxPrompt = game:GetService("Workspace").ToolGrab.ProximityPrompt
+        local ProximityPromptService = game:GetService("ProximityPromptService")
+        local RunService = game:GetService("RunService")
+        local plr = game.Players.LocalPlayer
+        local chr = plr.Character
+        local Backpack = plr.Backpack
+
+getgenv().dropper = true;
+
+        
+                while wait() do
+                    if not getgenv().dropper == true then break end
+                        for i, v in pairs(game:GetService("Workspace"):GetDescendants()) do
+                            if v:IsA("ProximityPrompt") then
+                                if ProximityPromptService.PromptShown then
+                                    fireproximityprompt(v, 1, true)
+                                end
+                            end
+                        end
+                        local BNalloom = Backpack:WaitForChild("Balloon")
+                        BNalloom.Name = "Stick"
+                        BNalloom:WaitForChild("Script"):destroy()
+                        chr.Humanoid:EquipTool(BNalloom)
+                        for i,v in pairs(chr:GetDescendants()) do
+                            if v.Name == ("Mesh") then
+                                v:destroy()
+                            end
+                        end
+                        
+                        chr:WaitForChild("Stick").Parent = Workspace
+                end
+
+        else
+
+        local ProxPrompt = game:GetService("Workspace").ToolGrab.ProximityPrompt
+        local ProximityPromptService = game:GetService("ProximityPromptService")
+        local RunService = game:GetService("RunService")
+        local plr = game.Players.LocalPlayer
+        local chr = plr.Character
+        local Backpack = plr.Backpack
+
+getgenv().dropper = false;
+
+        
+                while wait() do
+                    if not getgenv().dropper == true then break end
+                        for i, v in pairs(game:GetService("Workspace"):GetDescendants()) do
+                            if v:IsA("ProximityPrompt") then
+                                if ProximityPromptService.PromptShown then
+                                    fireproximityprompt(v, 1, true)
+                                end
+                            end
+                        end
+                        local BNalloom = Backpack:WaitForChild("Balloon")
+                        BNalloom.Name = "Stick"
+                        BNalloom:WaitForChild("Script"):destroy()
+                        chr.Humanoid:EquipTool(BNalloom)
+                        for i,v in pairs(chr:GetDescendants()) do
+                            if v.Name == ("Mesh") then
+                                v:destroy()
+                            end
+                        end
+                        
+                        chr:WaitForChild("Stick").Parent = Workspace
+                end
+
+        end
+    end)
+    
+    ]]
+
+--[[        [ ARCHIVED ]
+        MicUpTrollingSection:NewToggle("Dropper Fast", "Drops bloons.", function(state)
+        if state then
+            --blur disable
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+
+local plr = game.Players.LocalPlayer
+local chr = plr.Character
+local Backpack = plr.Backpack
+
+            if dropLoop then
+                dropLoop:Disconnect()
+            end
+
+            local function dropFunc()
+
+                        for i, v in pairs(game:GetService("Workspace"):GetDescendants()) do
+                            if v:IsA("ProximityPrompt") then
+                                if ProximityPromptService.PromptShown then
+                                    fireproximityprompt(v, 1, true)
+                                end
+                            end
+                        end
+                        local BNalloom = Backpack:WaitForChild("Balloon")
+                        BNalloom.Name = "Stick"
+                        BNalloom:WaitForChild("Script"):destroy()
+                        chr.Humanoid:EquipTool(BNalloom)
+                        for i,v in pairs(chr:GetDescendants()) do
+                            if v.Name == ("Mesh") then
+                                v:destroy()
+                            end
+                        end
+                        
+                        chr:WaitForChild("Stick").Parent = Workspace
+                        
+            end
+
+            dropLoop = RunService.RenderStepped:Connect(dropFunc)
+            print("dropper On")
+
+        else
+
+            UserInputService = game:GetService("UserInputService")
+            TweenService = game:GetService("TweenService")
+            HttpService = game:GetService("HttpService")
+            MarketplaceService = game:GetService("MarketplaceService")
+            RunService = game:GetService("RunService")
+            TeleportService = game:GetService("TeleportService")
+            StarterGui = game:GetService("StarterGui")
+            GuiService = game:GetService("GuiService")
+            Lighting = game:GetService("Lighting")
+            ContextActionService = game:GetService("ContextActionService")
+            NetworkClient = game:GetService("NetworkClient")
+            ReplicatedStorage = game:GetService("ReplicatedStorage")
+            GroupService = game:GetService("GroupService")
+            PathService = game:GetService("PathfindingService")
+            SoundService = game:GetService("SoundService")
+            Teams = game:GetService("Teams")
+            StarterPlayer = game:GetService("StarterPlayer")
+            InsertService = game:GetService("InsertService")
+            ChatService = game:GetService("Chat")
+            ProximityPromptService = game:GetService("ProximityPromptService")
+            StatsService = game:GetService("Stats")
+
+            if dropLoop then
+                dropLoop:Disconnect()
+            end
+
+            print("dropper Off")
+
+        end
+    end)
+    ]]
 
 
     --[[ bathroom ]]
