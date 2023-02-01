@@ -64,8 +64,8 @@ EssentialsGRAPHICSection:NewButton("Lighting and SB", "Changes skybox, puts some
     bloom.Threshold = 1
     
     local ccr = Instance.new("ColorCorrectionEffect", game:GetService("Lighting"))
-    ccr.Brightness = -0.1
-    ccr.Contrast = 0.2
+    ccr.Brightness = 0
+    ccr.Contrast = 0.1
     ccr.Saturation = 0
     ccr.TintColor = Color3.new(1, 0.90196078431, 0.8431372549)
     
@@ -84,6 +84,8 @@ EssentialsGRAPHICSection:NewButton("Lighting and SB", "Changes skybox, puts some
             sethiddenproperty(v,"CastShadow",true)
         end
     end
+    
+
     
 
 end)
