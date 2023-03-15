@@ -5,7 +5,7 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
 local colors = {
-    SchemeColor = Color3.fromRGB(0,255,255),
+    SchemeColor = Color3.fromRGB(125,18,255),
     Background = Color3.fromRGB(0, 0, 0),
     Header = Color3.fromRGB(0, 0, 0),
     TextColor = Color3.fromRGB(255,255,255),
@@ -28,7 +28,7 @@ EssentialsGRAPHICSection:NewButton("Lighting and SB", "Changes skybox, puts some
     sethiddenproperty(game.Lighting,"Technology",Enum.Technology.Future)
     sethiddenproperty(game.Lighting,"ShadowSoftness",0)
     sethiddenproperty(game.Lighting,"EnvironmentDiffuseScale",0.222)
-    sethiddenproperty(game.Lighting,"EnvironmentSpecularScale",1)
+    sethiddenproperty(game.Lighting,"EnvironmentSpecularScale",0)
     game:GetService("Lighting").Ambient = Color3.new(0, 0, 0)
     game:GetService("Lighting").ClockTime = 7.793
     game:GetService("Lighting").GeographicLatitude = 52.58
@@ -69,32 +69,210 @@ EssentialsGRAPHICSection:NewButton("Lighting and SB", "Changes skybox, puts some
     ccr.Saturation = 0
     ccr.TintColor = Color3.new(1, 0.90196078431, 0.8431372549)
     
+    --[[
     local clouds = Instance.new("Clouds", game:GetService("Workspace").Terrain)
     clouds.Cover = 0.69
     clouds.Density = 1
+    ]]
     
     local atmos = Instance.new("Atmosphere", game:GetService("Lighting"))
-    atmos.Density = 0.3
+    atmos.Density = 0
     atmos.Offset = 0
     atmos.Glare = 0
     atmos.Haze = 0
     
     for i,v in pairs(Workspace:GetDescendants()) do
-        if v:IsA("Part") or v:IsA("MeshPart") then
+        if v:IsA("Part") then
             sethiddenproperty(v,"CastShadow",true)
         end
     end
     
-
+    for i,v in pairs(Workspace:GetDescendants()) do
+        if v:IsA("MeshPart") then
+            sethiddenproperty(v,"CastShadow",true)
+        end
+    end
     
-
+    --[[]]
+    
+    for i,v in pairs(Workspace:GetDescendants()) do
+        if v:IsA("PointLight") then
+            v.Shadows = true
+        end
+    end
+    
+    for i,v in pairs(Workspace:GetDescendants()) do
+        if v:IsA("SpotLight") then
+            v.Shadows = true
+        end
+    end
 end)
+
 
 EssentialsSection:NewButton("Infinite Yield", "Loads Infinite Yield, an \"admin\" menu.", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
 
+
 local MiscEssentialsSection = Essentials:NewSection("Misc")
+
+
+    MiscEssentialsSection:NewToggle("Realtime clock", "Syncs your ingame time with your operating system, and makes a gui with it aswell.", function(state)
+        if state then
+            
+            
+        getgenv().RealTime = true
+            
+            
+            
+        -- Instances:
+            
+        local RealTimeClock = Instance.new("ScreenGui")
+        local Frame = Instance.new("Frame")
+        local Time = Instance.new("TextLabel")
+        local Date = Instance.new("TextLabel")
+            
+        --Properties:
+        
+        RealTimeClock.Name = "Real Time Clock"
+        RealTimeClock.Parent = game:GetService("CoreGui")
+        RealTimeClock.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        RealTimeClock.ResetOnSpawn = false
+        
+        Frame.Parent = RealTimeClock
+        Frame.Active = true
+        Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Frame.BackgroundTransparency = 1.000
+        Frame.BorderSizePixel = 0
+        Frame.Position = UDim2.new(0.827371478, 0, 0.85699594, 0)
+        Frame.Size = UDim2.new(0, 181, 0, 79)
+            
+        Time.Name = "Time"
+        Time.Parent = Frame
+        Time.AnchorPoint = Vector2.new(1, 1)
+        Time.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Time.BackgroundTransparency = 1.000
+        Time.BorderSizePixel = 0
+        Time.Position = UDim2.new(0.999999762, 0, 0.50593996, 0)
+        Time.Size = UDim2.new(0.999999762, 0, 0.50593996, 0)
+        Time.Font = Enum.Font.Code
+        Time.Text = "none smh"
+        Time.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Time.TextScaled = true
+        Time.TextSize = 14.000
+        Time.TextWrapped = true
+            
+        Date.Name = "Date"
+        Date.Parent = Frame
+        Date.AnchorPoint = Vector2.new(1, 1)
+        Date.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Date.BackgroundTransparency = 1.000
+        Date.BorderSizePixel = 0
+        Date.Position = UDim2.new(0.999999762, 0, 0.999117494, 0)
+        Date.Size = UDim2.new(0.999999762, 0, 0.50593996, 0)
+        Date.Font = Enum.Font.Code
+        Date.Text = "none smh"
+        Date.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Date.TextScaled = true
+        Date.TextSize = 14.000
+        Date.TextWrapped = true
+            
+        -- Scripts:
+            
+        local function ZFSXCDD_fake_script() -- Frame.LocalScript 
+            local script = Instance.new('LocalScript', Frame)
+            
+            local UserInputService = game:GetService("UserInputService")
+            	
+            local gui = script.Parent
+            	
+            local dragging
+            local dragInput
+            local dragStart
+            local startPos
+            	
+            local function update(input)
+            	local delta = input.Position - dragStart
+            	gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+            end
+            	
+            gui.InputBegan:Connect(function(input)
+            	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            		dragging = true
+            		dragStart = input.Position
+            		startPos = gui.Position
+            	
+            		input.Changed:Connect(function()
+            			if input.UserInputState == Enum.UserInputState.End then
+            				dragging = false
+            			end
+            		end)
+            	end
+            end)
+            	
+            gui.InputChanged:Connect(function(input)
+            	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            		dragInput = input
+            	end
+            end)
+            	
+            UserInputService.InputChanged:Connect(function(input)
+            	if input == dragInput and dragging then
+            		update(input)
+            	end
+            end)
+        end
+        coroutine.wrap(ZFSXCDD_fake_script)()
+            
+        wait(0.01)
+            
+            
+        while wait() do
+            if not getgenv().RealTime == true then break end
+                
+            local Unix = os.time()
+            local Localtime = os.date("%H:%M:%S", Unix)
+            game.Lighting.TimeOfDay = Localtime
+            
+            
+            local Date = game:GetService("CoreGui")["Real Time Clock"].Frame.Date
+            Date.Text = os.date("%A, %d %B %Y", Unix)
+            
+            local Time = game:GetService("CoreGui")["Real Time Clock"].Frame.Time
+            Time.Text = os.date("%I:%M:%S %p", Unix)
+            	
+        end
+            
+            
+    else
+            
+            
+        getgenv().RealTime = false
+            
+        game:GetService("CoreGui")["Real Time Clock"]:Destroy()
+            
+        wait(0.01)
+            
+        while wait() do
+            if not getgenv().RealTime == true then break end
+                
+            local Unix = os.time()
+            local Localtime = os.date("%H:%M:%S", Unix)
+            game.Lighting.TimeOfDay = Localtime
+            
+            
+            local Date = game:GetService("CoreGui")["Real Time Clock"].Date
+            Date.Text = os.date("%A, %d %B %Y", Unix)
+            
+            local Time = game:GetService("CoreGui")["Real Time Clock"].Time
+            Time.Text = os.date("%I:%M:%S %p", Unix)
+            	
+        end
+            
+            
+    end
+end)
+
 
 MiscEssentialsSection:NewButton("Anti AFK", "Loads a gui that prevents ROBLOX\'s Anti AFK.", function()
     loadstring(game:HttpGet("https://pastebin.com/raw/sDXcYFhR", true))()
@@ -5274,6 +5452,14 @@ end)
 --[[ BOTTOM OF TOPKEK ]]
 
 --Player modifications
+
+PlayerModificationsSection:NewButton("Reset to defaults", "Resets modifiers.", function(s)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+    game:GetService("Workspace").Camera.FieldOfView = 70
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
+
+end)
+
 PlayerModificationsSection:NewSlider("Walkspeed", "Walkspeed Modifier.", 200, 16, function(s)
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
 end)
@@ -5926,6 +6112,397 @@ if game.PlaceId == 6884319169 then
     local MicUpMapControl = Window:NewTab("Mic Up Map")
     local MicUpMapdntControlSection = MicUpMapControl:NewSection("Donut Shop")
     
+
+
+
+MicUpMapdntControlSection:NewToggle("Fix seat height", "Fixes the floating chairs.", function(state)
+    if state then
+            
+        --TABLE 0 FAR BACK
+        
+        --BOTTOM
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-106.056946, 1.61462593, -104.815651, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247) then
+                v.CFrame = CFrame.new(-106.056946, 1.09, -104.815651, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247)
+            end
+        end
+        
+        --TABLE
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-106.056946, 2.69458199, -104.815651, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247) then
+                v.CFrame = CFrame.new(-106.056946, 2.19458199, -104.815651, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247)
+            end
+        end
+        
+        --SEATROWS
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-109.343155, 1.61462593, -101.530128, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247) then
+                v.CFrame = CFrame.new(-109.015915, 1.09000003, -101.85717, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-102.651711, 1.61462593, -108.220886, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247) then
+                v.CFrame = CFrame.new(-103.18206, 1.09000003, -107.690575, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247)
+            end
+        end
+        
+        --SEATBACKS
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-101.716843, 2.7522583, -109.155754, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247) then
+                v.CFrame = CFrame.new(-102.247192, 2.7522583, -108.625443, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-110.277962, 2.7522583, -100.595001, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247) then
+                v.CFrame = CFrame.new(-109.924393, 2.7522583, -100.94854, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247)
+            end
+        end
+        
+        --SEATS1
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-104.811508, 2.53172946, -110.220474, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-105.165215, 2.03172946, -109.867073, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-102.691132, 2.53172946, -108.098206, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-103.044838, 2.03172946, -107.744804, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-100.570755, 2.53172946, -105.975937, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-100.924461, 2.03172946, -105.622536, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        
+        
+        --SEATS2
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-107.291283, 2.53172946, -99.2614212, 0.706803799, -0, -0.707409739, 0, 1, -0, 0.707409739, 0, 0.706803799) then
+                v.CFrame = CFrame.new(-106.937576, 2.03172946, -99.6148224, 0.706803679, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803679)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-109.411659, 2.53172946, -101.38369, 0.706803799, -0, -0.707409739, 0, 1, -0, 0.707409739, 0, 0.706803799) then
+                v.CFrame = CFrame.new(-109.057953, 2.03172946, -101.737091, 0.706803799, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803799)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-111.532043, 2.53172946, -103.505966, 0.706803799, -0, -0.707409739, 0, 1, -0, 0.707409739, 0, 0.706803799) then
+                v.CFrame = CFrame.new(-111.178337, 2.03172946, -103.859367, 0.706803799, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803799)
+            end
+        end
+        
+        
+        
+        
+        
+        
+        
+        --TABLE1 (CLOSE TO DOOR BIG TABLE)
+        
+        --BOTTOM
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-94.7900009, 1.61462593, -93.6671295, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-94.7900009, 1.09, -93.6671295, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        --TABLE
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-94.7900009, 2.69458199, -93.6671295, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-94.7900009, 2.19458199, -93.6671295, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        --SEAT ROWS
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-98.1938019, 1.61462593, -97.0737686, 0.706803799, -0, -0.707409739, 0, 1, -0, 0.707409739, 0, 0.706803799) then
+                v.CFrame = CFrame.new(-97.6637039, 1.09, -96.5432053, 0.706803799, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803799)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-91.5058441, 1.61462593, -90.3795166, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-91.8592453, 1.09, -90.733223, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        --SEATBACKS
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-90.5712509, 2.7522583, -89.4441528, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-90.9246521, 2.7522583, -89.7978592, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-99.1284637, 2.7522583, -98.009407, 0.706803799, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803799) then
+                v.CFrame = CFrame.new(-98.5983582, 2.7522583, -97.4788513, 0.706803799, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803799)
+            end
+        end
+        
+        --SEATS1
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-93.8613434, 2.53172946, -87.9416962, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355) then
+                v.CFrame = CFrame.new(-94.2147522, 2.03172946, -88.2953949, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-91.7390671, 2.53172946, -90.0620728, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355) then
+                v.CFrame = CFrame.new(-92.0924759, 2.03172946, -90.4157715, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-89.6167984, 2.53172946, -92.1824417, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355) then
+                v.CFrame = CFrame.new(-89.9702072, 2.03172946, -92.5361404, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355)
+            end
+        end
+        
+        --SEATS2
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-100.575836, 2.53172946, -94.6622314, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772) then
+                v.CFrame = CFrame.new(-100.045723, 2.03172946, -94.1316833, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-98.4535675, 2.53172946, -96.7826004, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772) then
+                v.CFrame = CFrame.new(-97.9234543, 2.03172946, -96.2520523, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-96.3312912, 2.53172946, -98.902977, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772) then
+                v.CFrame = CFrame.new(-95.801178, 2.03172946, -98.3724289, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772)
+            end
+        end 
+        
+        
+    else
+                
+        --TABLE 0
+        
+        
+        --BOTTOM
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-106.056946, 1.09, -104.815651, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247) then
+                v.CFrame = CFrame.new(-106.056946, 1.61462593, -104.815651, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247)
+            end
+        end
+        
+        --TABLE
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-106.056946, 2.19458199, -104.815651, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247) then
+                v.CFrame = CFrame.new(-106.056946, 2.69458199, -104.815651, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247)
+            end
+        end
+        
+        --SEATROWS
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-109.015915, 1.09000003, -101.85717, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247) then
+                v.CFrame = CFrame.new(-109.343155, 1.61462593, -101.530128, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-103.18206, 1.09000003, -107.690575, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247) then
+                v.CFrame = CFrame.new(-102.651711, 1.61462593, -108.220886, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247)
+            end
+        end
+        
+        --SEATBACKS
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-102.247192, 2.7522583, -108.625443, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247) then
+                v.CFrame = CFrame.new(-101.716843, 2.7522583, -109.155754, -0.707134247, 0, -0.707079291, 0, 1, 0, 0.707079291, 0, -0.707134247)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-109.924393, 2.7522583, -100.94854, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247) then
+                v.CFrame = CFrame.new(-110.277962, 2.7522583, -100.595001, 0.707134247, 0, 0.707079291, 0, 1, 0, -0.707079291, 0, 0.707134247)
+            end
+        end
+        
+        
+        --SEATS1
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-105.165215, 2.03172946, -109.867073, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-104.811508, 2.53172946, -110.220474, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-103.044838, 2.03172946, -107.744804, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-102.691132, 2.53172946, -108.098206, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-100.924461, 2.03172946, -105.622536, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-100.570755, 2.53172946, -105.975937, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        --SEATS2
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-106.937576, 2.03172946, -99.6148224, 0.706803679, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803679) then
+                v.CFrame = CFrame.new(-107.291283, 2.53172946, -99.2614212, 0.706803799, -0, -0.707409739, 0, 1, -0, 0.707409739, 0, 0.706803799)
+            end
+        end
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-109.057953, 2.03172946, -101.737091, 0.706803799, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803799) then
+                v.CFrame = CFrame.new(-109.411659, 2.53172946, -101.38369, 0.706803799, -0, -0.707409739, 0, 1, -0, 0.707409739, 0, 0.706803799)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-111.178337, 2.03172946, -103.859367, 0.706803799, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803799) then
+                v.CFrame = CFrame.new(-111.532043, 2.53172946, -103.505966, 0.706803799, -0, -0.707409739, 0, 1, -0, 0.707409739, 0, 0.706803799)
+            end
+        end
+        
+        
+        
+        
+        
+        --TABLE 1
+        
+        
+        --BOTTOM
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-94.7900009, 1.09, -93.6671295, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-94.7900009, 1.61462593, -93.6671295, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        --TABLE
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-94.7900009, 2.19458199, -93.6671295, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-94.7900009, 2.69458199, -93.6671295, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        --SEATROWS
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-97.6637039, 1.09000003, -96.5432053, 0.706803799, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803799) then
+                v.CFrame = CFrame.new(-98.1938019, 1.61462593, -97.0737686, 0.706803799, -0, -0.707409739, 0, 1, -0, 0.707409739, 0, 0.706803799)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-91.8592453, 1.09000003, -90.733223, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-91.5058441, 1.61462593, -90.3795166, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        --SEATBACKS
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-90.9246521, 2.7522583, -89.7978592, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276) then
+                v.CFrame = CFrame.new(-90.5712509, 2.7522583, -89.4441528, -0.706804276, 0, 0.707409739, 0, 1, 0, -0.707409739, 0, -0.706804276)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Part") and v.CFrame == CFrame.new(-98.5983582, 2.7522583, -97.4788513, 0.706803799, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803799) then
+                v.CFrame = CFrame.new(-99.1284637, 2.7522583, -98.009407, 0.706803799, 0, -0.707409739, 0, 1, 0, 0.707409739, 0, 0.706803799)
+            end
+        end
+        
+        --SEATS1
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-94.2147522, 2.03172946, -88.2953949, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355) then
+                v.CFrame = CFrame.new(-93.8613434, 2.53172946, -87.9416962, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355)
+            end
+        end
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-92.0924759, 2.03172946, -90.4157715, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355) then
+                v.CFrame = CFrame.new(-91.7390671, 2.53172946, -90.0620728, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355)
+            end
+        end
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-89.9702072, 2.03172946, -92.5361404, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355) then
+                v.CFrame = CFrame.new(-89.6167984, 2.53172946, -92.1824417, 0.707398355, 0, 0.706815183, 0, 1, 0, -0.706815183, 0, 0.707398355)
+            end
+        end
+        
+        --SEATS2
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-100.045723, 2.03172946, -94.1316833, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772) then
+                v.CFrame = CFrame.new(-100.575836, 2.53172946, -94.6622314, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-97.9234543, 2.03172946, -96.2520523, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772) then
+                v.CFrame = CFrame.new(-98.4535675, 2.53172946, -96.7826004, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772)
+            end
+        end
+        
+        
+        
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v.Parent.Name == "Donutshop" and v:IsA("Seat") and v.CFrame == CFrame.new(-95.801178, 2.03172946, -98.3724289, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772) then
+                v.CFrame = CFrame.new(-96.3312912, 2.53172946, -98.902977, -0.707398772, 0, -0.706815183, 0, 1, 0, 0.706815183, 0, -0.707398772)
+            end
+        end 
+    end
+end)
+    
     MicUpMapdntControlSection:NewButton("Make colorful again", "Brings back the old look and makes seats visible.", function()
         for i, v in pairs(Workspace.Donutshop:GetDescendants()) do
             if v:IsA("Part") then
@@ -6096,6 +6673,248 @@ if game.PlaceId == 6884319169 then
                 v.BrickColor = BrickColor.new("Cyan")
             end
         end
+    end)
+    
+    local MicUpMapterrainControlSection = MicUpMapControl:NewSection("Terrain")
+    
+    MicUpMapterrainControlSection:NewButton("Good Terrain Colors and Details", "Changes colors of terrain and water detailing.", function()
+        game:GetService("Workspace").Terrain.WaterTransparency = 0.8
+        game:GetService("Workspace").Terrain.WaterWaveSize = 1
+        sethiddenproperty(game:GetService("Workspace").Terrain,"Decoration",false)
+    end)
+    
+    MicUpMapterrainControlSection:NewButton("Clear Terrain (CAN LAG)", "Clears terrain.", function()
+        game.Workspace.Terrain:Clear()
+        local baseplt = game:GetService("Workspace"):WaitForChild("Baseplate")
+                
+        baseplt.Transparency = 0
+        baseplt:WaitForChild("Texture").Transparency = 0
+        baseplt.CanCollide = true
+    end)
+    
+    MicUpMapterrainControlSection:NewButton("Clear Water (CAN LAG)", "Clears only water.", function()
+        local Terrain = workspace.Terrain
+        local processBlockSize = 640
+        local WATER = Enum.Material.Water
+        local AIR = Enum.Material.Air
+        local floor = math.floor
+        
+        function isInRegion3(region, point)
+            --function by buildthomas
+            --https://devforum.roblox.com/t/see-if-vector3-is-in-region3/118457/7
+            local relative = (point - region.CFrame.p) / region.Size
+            return -0.5 <= relative.X and relative.X <= 0.5
+               and -0.5 <= relative.Y and relative.Y <= 0.5
+               and -0.5 <= relative.Z and relative.Z <= 0.5
+        end
+        
+        local function round(num)
+            return math.floor(num + .5)
+        end
+        
+        local function getAlignedPosition(pos)
+            --Function from https://wiki.roblox.com/index.php?title=Smooth_terrain#Flood_Fill
+            local x = round(pos.X)
+            x = x - x%4 + 2
+            local y = round(pos.Y)
+            y = y - y%4 + 2
+            local z = round(pos.Z)
+            z = z - z%4 + 2
+            
+            return Vector3.new(x,y,z)
+        end
+        
+        local function comma_value(n) --http://lua-users.org/wiki/FormattingNumbers
+            local left,num,right = string.match(n,'^([^%d]*%d)(%d*)(.-)$')
+            return left..(num:reverse():gsub('(%d%d%d)','%1,'):reverse())..right
+        end
+        
+        local function removeWater(voxelPos, worldSize)
+            local functionStart = tick()
+            voxelPos = getAlignedPosition(voxelPos)
+            local material = nil
+            local occupancy = nil
+            
+            local boundaryRegion = Region3.new(voxelPos-worldSize/2, voxelPos+worldSize/2)
+            boundaryRegion:ExpandToGrid(4)
+            local minPoint = boundaryRegion.CFrame.p-boundaryRegion.Size/2
+            print("Starting")
+            local partsProcessed = 0
+            
+            local regions = {} --Stores all of the regions to read/write to
+            
+            local start = getAlignedPosition(minPoint)
+            local xOffset = 0
+            local yOffset = 0
+            local zOffset = 0
+            local done = false
+            repeat
+                local startPos = start+Vector3.new(xOffset,yOffset,zOffset)
+                local size = boundaryRegion.CFrame.p+boundaryRegion.Size/2-startPos
+                local x,y,z = size.X, size.Y, size.Z
+                if x > processBlockSize then
+                    x = processBlockSize
+                end
+                if y > processBlockSize then
+                    y = processBlockSize
+                end
+                if z > processBlockSize then
+                    z = processBlockSize
+                end
+                size = Vector3.new(x,y,z)
+                local region = Region3.new(startPos, startPos+size)
+                region = region:ExpandToGrid(4)
+                table.insert(regions, region)
+                zOffset = zOffset + processBlockSize
+                if zOffset >= boundaryRegion.Size.Z then
+                    zOffset = 0
+                    yOffset = yOffset + processBlockSize
+                end
+                if yOffset >= boundaryRegion.Size.Y then
+                    yOffset = 0
+                    xOffset = xOffset + processBlockSize
+                end
+                if xOffset >= boundaryRegion.Size.X then
+                    done = true
+                end
+            until done
+            
+            print("Writing to ", #regions, " regions!")
+            print("Removing water...")
+            local totalRemoved = 0
+            local totalProcessed = 0
+            local totalVolume = worldSize.X*worldSize.Y*worldSize.Z
+            local changed,materials,occupancy,size,matsX,occX,matsY,occY,p
+            for index, region in pairs(regions) do
+                --[[
+                --Uncomment this if you want parts to display where each chunk is
+                p = Instance.new("Part")
+                p.Anchored = true
+                p.CanCollide = false
+                p.Transparency = 0.9
+                --p.BrickColor = BrickColor.new(index%255)
+                p.Parent = workspace
+                p.Size = region.Size
+                p.CFrame = region.CFrame
+                ]]
+                changed = 0
+                materials, occupancy = Terrain:ReadVoxels(region, 4)
+                size = materials.Size
+                for x = 1, size.X do
+                    matsX = materials[x] --Creating variables to reduce amount of searching
+                    occX = occupancy[x]
+                    for y = 1, size.Y do
+                        matsY = matsX[y]
+                        occY = occX[y]
+                        for z = 1, size.Z do
+                            totalProcessed = totalProcessed + 1
+                            if matsY[z] == WATER then
+                                matsY[z] = AIR
+                                occY[z] = 0
+                                changed = changed + 1
+                            end
+                        end
+                    end
+                    --[[
+                    --Use this and comment out the wait below if you want constant progress updates
+                    if x%10 == 0 then
+                        print((floor((index-1+x/size.X)/#regions*1000+0.5)/10).."% complete!")
+                        wait(0)
+                    end
+                    ]]
+                end
+                
+                if changed > 0 then --No need to write if there is no changes
+                    Terrain:WriteVoxels(region, 4, materials, occupancy)
+                end
+                --Comment the following block out if you use the above wait ability.
+                if index%4 == 0 then
+                    print((floor(index/#regions*1000+0.5)/10).."% complete!")
+                    wait(0)
+                end
+                totalRemoved = totalRemoved + changed
+            end
+            
+            print("Total time elapsed: ", (tick()-functionStart), " seconds!")
+            print("Total water blocks removed: ", totalRemoved)
+            print("Total cells processed: ", comma_value(totalProcessed))
+            print("Region/Chunks: ", #regions)
+            print("Total Volume: ", totalVolume, "cubic studs")
+            print("Done processing")
+        end
+        
+        --Use this function as pass it the origin the removing should take place, and the size
+        --of the area to check for water.
+        --removeWater(origin, size)
+        removeWater(Vector3.new(0,0,0), Vector3.new(3000,2000,3000))
+    end)
+    
+    
+    MicUpMapterrainControlSection:NewButton("Replace Baseplate (LAGS)", "Makes the Baseplate grass. (LAGS)", function()
+        local baseplt = game:GetService("Workspace"):WaitForChild("Baseplate")
+                
+        local CFrameToFill = baseplt.CFrame
+        local fillsize = Vector3.new(402, 12, 387)
+        baseplt.Transparency = 1
+        baseplt:WaitForChild("Texture").Transparency = 1
+        baseplt.CanCollide = false
+                
+        game.Workspace.Terrain:FillBlock(CFrameToFill, fillsize, Enum.Material.Grass)
+    end)
+
+    
+    MicUpMapterrainControlSection:NewButton("Generate Water (LAGS)", "Makes about 5k Studs of water around you (LAGS)", function()
+        local ProxPrompt = game:GetService("Workspace").ToolGrab.ProximityPrompt
+        local ProximityPromptService = game:GetService("ProximityPromptService")
+        local RunService = game:GetService("RunService")
+        local plr = game.Players.LocalPlayer
+        local chr = plr.Character
+        local Backpack = plr.Backpack
+        local plrposX = chr.HumanoidRootPart.Position.X
+        local plrposZ = chr.HumanoidRootPart.Position.Z
+        
+        
+        
+        local wtrcyl1 = Instance.new("Part", game:GetService("Workspace"))
+        wtrcyl1.Name = "wtrcyl1"
+        wtrcyl1.Shape = "Cylinder"
+        wtrcyl1.Anchored = true
+        wtrcyl1.Position = Vector3.new(plrposX, -20, plrposZ)
+        wtrcyl1.Orientation = Vector3.new(0, 0, 0)
+        wtrcyl1.Size = Vector3.new(5, 5, 5)
+        
+        local CFrameToFill = wtrcyl1.CFrame
+        
+        game.Workspace.Terrain:FillCylinder(CFrameToFill, 5, 10000, Enum.Material.Water)
+        
+        local wtrcyl2 = Instance.new("Part", game:GetService("Workspace"))
+        wtrcyl2.Name = "wtrcyl2"
+        wtrcyl2.Shape = "Cylinder"
+        wtrcyl2.Anchored = true
+        wtrcyl2.Position = Vector3.new(plrposX, -24, plrposZ)
+        wtrcyl2.Orientation = Vector3.new(0, 0, 0)
+        wtrcyl2.Size = Vector3.new(5, 5, 5)
+        
+        local CFrameToFill = wtrcyl2.CFrame
+        
+        game.Workspace.Terrain:FillCylinder(CFrameToFill, 40, 5178, Enum.Material.Water)
+        
+        local sndcyl = Instance.new("Part", game:GetService("Workspace"))
+        sndcyl.Name = "sndcyl"
+        sndcyl.Shape = "Cylinder"
+        sndcyl.Anchored = true
+        sndcyl.Position = Vector3.new(plrposX, -40, plrposZ)
+        sndcyl.Orientation = Vector3.new(0, 0, 0)
+        sndcyl.Size = Vector3.new(5, 5, 5)
+        
+        
+        local CFrameToFill = sndcyl.CFrame
+        
+        game.Workspace.Terrain:FillCylinder(CFrameToFill, 5, 10000, Enum.Material.Sand)
+        
+        wtrcyl1:destroy()
+        wtrcyl2:destroy()
+        sndcyl:destroy()
     end)
     
     local MicUpStandControl = Window:NewTab("Mic Up Stand's")
@@ -7306,7 +8125,7 @@ local Backpack = plr.Backpack
     ]]
 
 
-    --[[ bathroom ]]
+    --[[ bathroom ARCHIVED ]
     MicUpTrollingSection:NewToggle("Possess Bathroom", "Kinda what it sounds like. (WILL LAG)", function(state)
         if state then
             getgenv().BathroomPossessed = true;
@@ -7549,6 +8368,8 @@ local Backpack = plr.Backpack
             end
         end
     end)
+    
+    ]]
 
 
 --[[ Houses ARCHIVED ]
@@ -7761,7 +8582,41 @@ elseif game.PlaceId == 537413528 then
     ATEAMSSection:NewDropdown("Change Team", "Changes to the selected team.", {"white", "black", "red", "green", "blue", "yellow", "magenta"}, function(currentOption)
 
         print(currentOption)
-        workspace.ChangeTeam:FireServer(game:GetService("Teams").white)
+        workspace.ChangeTeam:FireServer(game:GetService("Teams"):WaitForChild(currentOption))
+    end)
+    
+    ATEAMSSection:NewDropdown("Steal Team", "Waits for team opening.", {"white", "black", "red", "green", "blue", "yellow", "magenta"}, function(currentOption)
+
+        print(currentOption)
+        local ProximityPromptService = game:GetService("ProximityPromptService")
+        local RunService = game:GetService("RunService")
+        local plr = game.Players.LocalPlayer
+        local chr = plr.Character
+        local Backpack = plr.Backpack
+        local team = game:GetService("Teams"):WaitForChild(currentOption)
+        
+        getgenv().teamstealer = false;
+        wait(0.5)
+        getgenv().teamstealer = true;
+
+        
+        while wait() do
+            
+            if not getgenv().teamstealer == true then break end
+            
+            local playersOnTeam = team:GetPlayers()
+            local numberPlayersOnTeam = #playersOnTeam
+            if numberPlayersOnTeam == 0 then
+                workspace.ChangeTeam:FireServer(team)
+                print("team grabbed")
+                wait(.05)
+                break;
+            end
+        end
+    end)
+    
+    ATEAMSSection:NewButton("Stop team stealer", "Stops waiting for a team opening.", function()
+        getgenv().teamstealer = false;
     end)
     
 
