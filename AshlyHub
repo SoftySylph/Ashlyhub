@@ -116,12 +116,121 @@ end)
 
 local MiscEssentialsSection = Essentials:NewSection("Misc")
 
+    MiscEssentialsSection:NewButton("Bar Import", "Loads a client sided bar that I made into your game.", function()
+    if not game:GetService("Workspace"):FindFirstChild("Bar") then
+        --Imports bar
+        game:GetObjects("rbxassetid://12791303566")[1].Parent=game.Workspace
+    end
+    
+    local Bar = game:GetService("Workspace").Bar
+    
+    rotation = CFrame.Angles(0, math.rad(45), 0)
+    modelCFrame = CFrame.new(2410.851013, 2.69999862, -82.5898209, 0.50869298, -4.97949024e-08, 0.860947967, 5.34151887e-08, 1, 2.62768118e-08, -0.860947967, 3.26208713e-08, 0.50869298)
+    Bar:PivotTo(modelCFrame * rotation)
+    
+    --[[]]
+    
+    local function ZFSXCDD_fake_script() -- Frame.LocalScript 
+    local script = Instance.new('LocalScript', game:GetService("Workspace").Bar.Bar.Decorations.Jukebox["Meshes/SM_Jukebox_Jukebox"].Music)
+    script.Name = "jukeboxlocal"
+    local S1 = script.Parent.S1
+    local S2 = script.Parent.S2
+    local S3 = script.Parent.S3
+    local S4 = script.Parent.S4
+    local S5 = script.Parent.S5
+    local S6 = script.Parent.S6
+    local S7 = script.Parent.S7
+    local S8 = script.Parent.S8
+    local S9 = script.Parent.S9
+    local S10 = script.Parent.S10
+    
+    while true do
+    S1:Play()
+    S1.Ended:Wait()
+    wait(3)
+    S2:Play()
+    S2.Ended:Wait()
+    wait(3)
+    S3:Play()
+    S3.Ended:Wait()
+    wait(3)
+    S4:Play()
+    S4.Ended:Wait()
+    wait(3)
+    S5:Play()
+    S5.Ended:Wait()
+    wait(3)
+    S6:Play()
+    S6.Ended:Wait() 
+    wait(3)
+    S7:Play()
+    S7.Ended:Wait()
+    wait(3)
+    S8:Play()
+    S8.Ended:Wait()
+    wait(3)
+    S9:Play()
+    S9.Ended:Wait()
+    wait(3)
+    S10:Play()
+    S10.Ended:Wait() 
+    wait(3)
+    end
+    end
+    coroutine.wrap(ZFSXCDD_fake_script)()
+    
+    
+    
+    
+    game:GetService("Workspace").Bar.Bar.Ambience.S3.Parent = game:GetService("Workspace").Bar.Bar.Main.Structure.Pillar0.Part
+    game:GetService("Workspace").Bar.Bar.Ambience.S1.Parent = game:GetService("Workspace").Bar.Bar.Main.Structure.Pillar0.Part
+    Game:GetService("Workspace").Bar.Bar.Ambience.S2.Parent = game:GetService("Workspace").Bar.Bar.Main.Structure.Pillar0.Part
+    
+    local function ZFSXCDD_fake_script() -- Frame.LocalScript 
+    local script = Instance.new('LocalScript', game:GetService("Workspace").Bar.Bar.Ambience)
+    script.Name = "ambiencelocal"
+    
+    local S1 = script.Parent.S1
+    local S2 = script.Parent.S2
+    local S3 = script.Parent.S3
+    
+    while true do
+    S1:Play()
+    S1.Ended:Wait()
+    wait(5)
+    S2:Play()
+    S2.Ended:Wait()
+    wait(5)
+    S3:Play()
+    S3.Ended:Wait()
+    wait(5)
+    end
+    end
+    coroutine.wrap(ZFSXCDD_fake_script)()
+    
+    --]]
+    
 
-    MiscEssentialsSection:NewToggle("Realtime clock", "Syncs your ingame time with your operating system, and makes a gui with it aswell.", function(state)
+    end)
+
+    MiscEssentialsSection:NewButton("Bar TP", "Teleports you to the bar.", function()
+        game:GetService("Workspace").Bar.Bar.Ambience["Door Noise"].Union.Sound["Bell Rings 4 (SFX)"]:Play()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2398.09033, -1.34804809, -95.4458847, -0.96788919, 8.68887295e-10, -0.251377255, 2.20981144e-09, 1, -5.05202946e-09, 0.251377255, -5.4453011e-09, -0.96788919)
+    end)
+    
+    MiscEssentialsSection:NewButton("Bar Leave", "Teleports to the map.", function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(70.631752, 5.32692194, 24.5173721, 0.0327423215, 4.44861747e-09, 0.999463856, -9.65560147e-08, 1, -1.28783972e-09, -0.999463856, -9.6462081e-08, 0.0327423215)
+    end)
+    
+    MiscEssentialsSection:NewButton("Bar Destroy", "Deletes the imported bar.", function()
+        game:GetService("Workspace").Bar:Destroy()
+    end)
+
+    MiscEssentialsSection:NewToggle("Realtime clock", "Syncs your operating system time into a gui.", function(state)
         if state then
             
             
-        getgenv().RealTime = true
+        getgenv().RealTimeClock = true
             
             
             
@@ -228,11 +337,7 @@ local MiscEssentialsSection = Essentials:NewSection("Misc")
             
             
         while wait() do
-            if not getgenv().RealTime == true then break end
-                
-            local Unix = os.time()
-            local Localtime = os.date("%H:%M:%S", Unix)
-            game.Lighting.TimeOfDay = Localtime
+            if not getgenv().RealTimeClock == true then break end
             
             
             local Date = game:GetService("CoreGui")["Real Time Clock"].Frame.Date
@@ -247,19 +352,14 @@ local MiscEssentialsSection = Essentials:NewSection("Misc")
     else
             
             
-        getgenv().RealTime = false
+        getgenv().RealTimeClock = false
             
         game:GetService("CoreGui")["Real Time Clock"]:Destroy()
             
         wait(0.01)
             
         while wait() do
-            if not getgenv().RealTime == true then break end
-                
-            local Unix = os.time()
-            local Localtime = os.date("%H:%M:%S", Unix)
-            game.Lighting.TimeOfDay = Localtime
-            
+            if not getgenv().RealTimeClock == true then break end
             
             local Date = game:GetService("CoreGui")["Real Time Clock"].Date
             Date.Text = os.date("%A, %d %B %Y", Unix)
@@ -272,6 +372,303 @@ local MiscEssentialsSection = Essentials:NewSection("Misc")
             
     end
 end)
+
+
+
+
+
+
+
+
+MiscEssentialsSection:NewToggle("Sync Time", "Syncs your ingame time with your operating system.", function(state)
+    if state then
+    
+    getgenv().RealTime = true
+            
+  
+    while wait() do
+        if not getgenv().RealTime == true then break end
+                
+        local Unix = os.time()
+        local Localtime = os.date("%H:%M:%S", Unix)
+        game.Lighting.TimeOfDay = Localtime
+            	
+    end
+            
+            
+else
+            
+            
+    getgenv().RealTime = false
+    
+    while wait() do
+        if not getgenv().RealTime == true then break end
+                
+        local Unix = os.time()
+        local Localtime = os.date("%H:%M:%S", Unix)
+        game.Lighting.TimeOfDay = Localtime
+            	
+    end
+            
+            
+end
+end)
+
+
+
+
+
+
+
+
+MiscEssentialsSection:NewToggle("Time Ambience", "Syncs your ingame time with the ambient values ingame.", function(state)
+    if state then
+            
+    getgenv().RealTimeAmbient = true
+    
+    local Lighting = game:GetService("Lighting")
+    local TweenService = game:GetService("TweenService")
+    
+    local TweenProperties = TweenInfo.new( -- This contains properties that will determine how the Tween will be completed
+    
+    	1, -- Duration of time (in seconds) to complete the Tween
+    	Enum.EasingStyle.Linear, -- EasingStyle (How it moves)
+    	Enum.EasingDirection.In, -- EasingDirection (Direction it moves)
+    	0, -- How many times it will repeat
+    	false, -- If the Tween reverses back to its original state
+    	0 -- Delay before starting the Tween
+    
+    )
+    
+    local Goal1 = { -- Creates a table that determines the end goal of the first Tween
+    	-- This means that once the Tween is over, the ClockTime property will be 0.5, and Brightness will be 0
+    	ColorShift_Top = Color3.fromRGB(192, 192, 256),
+    	OutdoorAmbient = Color3.fromRGB(40, 40, 60)
+    
+    }
+    
+    local Goal2 = { -- Creates a table that determines the end goal of the second Tween
+    	-- I would advise adjusting the properties within the different goals so it makes more sense when swapping between the two (so the brightness is greater during the daytime, lower during the nighttime, etc.)
+    	ColorShift_Top = Color3.fromRGB(255, 192, 146),
+    	OutdoorAmbient = Color3.fromRGB(65, 72, 53)
+    
+    }
+    
+    local Goal3 = { -- Creates a table that determines the end goal of the second Tween
+    	-- I would advise adjusting the properties within the different goals so it makes more sense when swapping between the two (so the brightness is greater during the daytime, lower during the nighttime, etc.)
+    	ColorShift_Top = Color3.fromRGB(255, 255, 255),
+    	OutdoorAmbient = Color3.fromRGB(100, 100, 110)
+    
+    }
+    
+    local nighttween = TweenService:Create(Lighting, TweenProperties, Goal1)
+    --[[ Creates a Tween for the Lighting service, utilizing the properties outlined
+    in the "TweenProperties" with the goal of transitioning the properties of the
+    Lighting service to the values in the "Goal1" table --]]
+    
+    local sunrisesunsetTween = TweenService:Create(Lighting, TweenProperties, Goal2)
+    
+    local daytween = TweenService:Create(Lighting, TweenProperties, Goal3)
+    
+    
+    local debounce = false -- Debounce variable to prevent the Tweens from playing again until they've been completed
+    
+    
+    
+    
+       
+    while wait() do
+        if not getgenv().RealTimeClock == true then break end
+
+    	if Lighting.ClockTime > 19.5 or Lighting.ClockTime < 6 --[[and Lighting.ColorShift_Top ~= Color3.fromRGB(255, 192, 146)]] then
+    		if not debounce then -- If the Tweens are not currently active, then...
+    			debounce = true -- The variable will be set to true so that this part of the function will not be run until the Tweens have concluded
+
+    
+    
+    
+    			nighttween:Play() -- This activates the first tween...
+    			nighttween.Completed:Wait() -- And this will ensure that the script waits until the first Tween is completed before continuing
+    			debounce = false -- Sets the debounce back to false so that this section of the function will be able to run again/the Tweens can be replayed
+    		end
+    	elseif Lighting.ClockTime < 19.5 and Lighting.ClockTime > 16 --[[and Lighting.ColorShift_Top ~= Color3.fromRGB(192, 192, 256)]] then
+    		if not debounce then -- If the Tweens are not currently active, then...
+    			debounce = true -- The variable will be set to true so that this part of the function will not be run until the Tweens have concluded
+    
+    
+
+    
+    			sunrisesunsetTween:Play() -- This activates the first tween...
+    			sunrisesunsetTween.Completed:Wait() -- And this will ensure that the script waits until the first Tween is completed before continuing
+    			debounce = false -- Sets the debounce back to false so that this section of the function will be able to run again/the Tweens can be replayed
+    		end
+    		
+    	elseif Lighting.ClockTime > 6 and Lighting.ClockTime < 7.5 --[[and Lighting.ColorShift_Top ~= Color3.fromRGB(192, 192, 256)]] then
+    		
+    		if not debounce then -- If the Tweens are not currently active, then...
+    			debounce = true -- The variable will be set to true so that this part of the function will not be run until the Tweens have concluded
+    
+    
+
+    
+    			sunrisesunsetTween:Play() -- This activates the first tween...
+    			sunrisesunsetTween.Completed:Wait() -- And this will ensure that the script waits until the first Tween is completed before continuing
+    			debounce = false -- Sets the debounce back to false so that this section of the function will be able to run again/the Tweens can be replayed
+    		end
+    		
+    	elseif Lighting.ClockTime > 7.5 and Lighting.ClockTime < 16 --[[and Lighting.ColorShift_Top ~= Color3.fromRGB(255, 255, 255)]] then
+    
+    		if not debounce then -- If the Tweens are not currently active, then...
+    			debounce = true -- The variable will be set to true so that this part of the function will not be run until the Tweens have concluded
+    
+    
+
+    
+    			daytween:Play() -- This activates the first tween...
+    			daytween.Completed:Wait() -- And this will ensure that the script waits until the first Tween is completed before continuing
+    			debounce = false -- Sets the debounce back to false so that this section of the function will be able to run again/the Tweens can be replayed
+    		end
+    		
+    	end
+
+    end
+            
+            
+else
+            
+            
+    getgenv().RealTimeAmbient = false
+    
+    local Lighting = game:GetService("Lighting")
+    local TweenService = game:GetService("TweenService")
+    
+    local TweenProperties = TweenInfo.new( -- This contains properties that will determine how the Tween will be completed
+    
+    	1, -- Duration of time (in seconds) to complete the Tween
+    	Enum.EasingStyle.Linear, -- EasingStyle (How it moves)
+    	Enum.EasingDirection.In, -- EasingDirection (Direction it moves)
+    	0, -- How many times it will repeat
+    	false, -- If the Tween reverses back to its original state
+    	0 -- Delay before starting the Tween
+    
+    )
+    
+    local Goal1 = { -- Creates a table that determines the end goal of the first Tween
+    	-- This means that once the Tween is over, the ClockTime property will be 0.5, and Brightness will be 0
+    	ColorShift_Top = Color3.fromRGB(192, 192, 256),
+    	OutdoorAmbient = Color3.fromRGB(40, 40, 60)
+    
+    }
+    
+    local Goal2 = { -- Creates a table that determines the end goal of the second Tween
+    	-- I would advise adjusting the properties within the different goals so it makes more sense when swapping between the two (so the brightness is greater during the daytime, lower during the nighttime, etc.)
+    	ColorShift_Top = Color3.fromRGB(255, 192, 146),
+    	OutdoorAmbient = Color3.fromRGB(65, 72, 53)
+    
+    }
+    
+    local Goal3 = { -- Creates a table that determines the end goal of the second Tween
+    	-- I would advise adjusting the properties within the different goals so it makes more sense when swapping between the two (so the brightness is greater during the daytime, lower during the nighttime, etc.)
+    	ColorShift_Top = Color3.fromRGB(255, 255, 255),
+    	OutdoorAmbient = Color3.fromRGB(100, 100, 110)
+    
+    }
+    
+    local nighttween = TweenService:Create(Lighting, TweenProperties, Goal1)
+    --[[ Creates a Tween for the Lighting service, utilizing the properties outlined
+    in the "TweenProperties" with the goal of transitioning the properties of the
+    Lighting service to the values in the "Goal1" table --]]
+    
+    local sunrisesunsetTween = TweenService:Create(Lighting, TweenProperties, Goal2)
+    
+    local daytween = TweenService:Create(Lighting, TweenProperties, Goal3)
+    
+    
+    local debounce = false -- Debounce variable to prevent the Tweens from playing again until they've been completed
+    
+    
+    
+    
+       
+    while wait() do
+        if not getgenv().RealTimeClock == true then break end
+
+    	if Lighting.ClockTime > 19.5 or Lighting.ClockTime < 6 --[[and Lighting.ColorShift_Top ~= Color3.fromRGB(255, 192, 146)]] then
+    		if not debounce then -- If the Tweens are not currently active, then...
+    			debounce = true -- The variable will be set to true so that this part of the function will not be run until the Tweens have concluded
+
+    
+    
+    
+    			nighttween:Play() -- This activates the first tween...
+    			nighttween.Completed:Wait() -- And this will ensure that the script waits until the first Tween is completed before continuing
+    			debounce = false -- Sets the debounce back to false so that this section of the function will be able to run again/the Tweens can be replayed
+    		end
+    	elseif Lighting.ClockTime < 19.5 and Lighting.ClockTime > 16 --[[and Lighting.ColorShift_Top ~= Color3.fromRGB(192, 192, 256)]] then
+    		if not debounce then -- If the Tweens are not currently active, then...
+    			debounce = true -- The variable will be set to true so that this part of the function will not be run until the Tweens have concluded
+    
+    
+
+    
+    			sunrisesunsetTween:Play() -- This activates the first tween...
+    			sunrisesunsetTween.Completed:Wait() -- And this will ensure that the script waits until the first Tween is completed before continuing
+    			debounce = false -- Sets the debounce back to false so that this section of the function will be able to run again/the Tweens can be replayed
+    		end
+    		
+    	elseif Lighting.ClockTime > 6 and Lighting.ClockTime < 7.5 --[[and Lighting.ColorShift_Top ~= Color3.fromRGB(192, 192, 256)]] then
+    		
+    		if not debounce then -- If the Tweens are not currently active, then...
+    			debounce = true -- The variable will be set to true so that this part of the function will not be run until the Tweens have concluded
+    
+    
+
+    
+    			sunrisesunsetTween:Play() -- This activates the first tween...
+    			sunrisesunsetTween.Completed:Wait() -- And this will ensure that the script waits until the first Tween is completed before continuing
+    			debounce = false -- Sets the debounce back to false so that this section of the function will be able to run again/the Tweens can be replayed
+    		end
+    		
+    	elseif Lighting.ClockTime > 7.5 and Lighting.ClockTime < 16 --[[and Lighting.ColorShift_Top ~= Color3.fromRGB(255, 255, 255)]] then
+    
+    		if not debounce then -- If the Tweens are not currently active, then...
+    			debounce = true -- The variable will be set to true so that this part of the function will not be run until the Tweens have concluded
+    
+    
+
+    
+    			daytween:Play() -- This activates the first tween...
+    			daytween.Completed:Wait() -- And this will ensure that the script waits until the first Tween is completed before continuing
+    			debounce = false -- Sets the debounce back to false so that this section of the function will be able to run again/the Tweens can be replayed
+    		end
+    		
+    	end
+
+    end
+            
+            
+end
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 MiscEssentialsSection:NewButton("Anti AFK", "Loads a gui that prevents ROBLOX\'s Anti AFK.", function()
